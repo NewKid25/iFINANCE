@@ -319,8 +319,8 @@
           <Property Name="TransactionID" Type="Int32" />
           <Property Name="MasterAccountID" Type="Int32" />
           <Property Name="MasterAccountID2" Type="Int32" />
-          <NavigationProperty Name="MasterAccount" Relationship="Self.FK_TransactionLine_MasterAccount" FromRole="TransactionLine" ToRole="MasterAccount" />
-          <NavigationProperty Name="MasterAccount1" Relationship="Self.FK_TransactionLine_MasterAccount1" FromRole="TransactionLine" ToRole="MasterAccount" />
+          <NavigationProperty Name="FirstMasterAccount" Relationship="Self.FK_TransactionLine_MasterAccount" FromRole="TransactionLine" ToRole="MasterAccount" />
+          <NavigationProperty Name="SecondMasterAccount" Relationship="Self.FK_TransactionLine_MasterAccount1" FromRole="TransactionLine" ToRole="MasterAccount" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK_TransactionLine_Transaction" FromRole="TransactionLine" ToRole="Transaction" />
         </EntityType>
         <EntityType Name="UserPassword">
