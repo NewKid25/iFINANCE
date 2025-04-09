@@ -23,9 +23,9 @@ namespace Group7_iFINANCEAPP.Models
     
         public int ID { get; set; }
         public string name { get; set; }
-        public Nullable<double> openingAmount { get; set; }
-        public Nullable<double> closingAmount { get; set; }
-        public Nullable<int> GroupID { get; set; }
+        public double openingAmount { get; set; }
+        public double closingAmount { get; set; }
+        public int GroupID { get; set; }
     
         public virtual Group Group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -17,16 +17,16 @@ namespace Group7_iFINANCEAPP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Transaction()
         {
-            this.TransactionLine = new HashSet<TransactionLine>();
+            this.TransactionLines = new HashSet<TransactionLine>();
         }
     
         public int ID { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
+        public System.DateTime date { get; set; }
         public string description { get; set; }
-        public Nullable<int> NonAdminUserID { get; set; }
+        public int NonAdminUserID { get; set; }
     
         public virtual NonAdminUser NonAdminUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionLine> TransactionLine { get; set; }
+        public virtual ICollection<TransactionLine> TransactionLines { get; set; }
     }
 }

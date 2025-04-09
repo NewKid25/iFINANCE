@@ -15,11 +15,12 @@ namespace Group7_iFINANCEAPP.Models
     public partial class UserPassword
     {
         public int ID { get; set; }
-        public int UserID { get; set; }
         public string userName { get; set; }
         public string encryptedPassword { get; set; }
         public Nullable<System.DateTime> passwordExpiryTime { get; set; }
         public Nullable<System.DateTime> userAccountExpiryDate { get; set; }
+        public Nullable<int> NonAdminUserID { get; set; }
+        public Nullable<int> AdministratorID { get; set; }
     
         public virtual Administrator Administrator { get; set; }
         public virtual NonAdminUser NonAdminUser { get; set; }

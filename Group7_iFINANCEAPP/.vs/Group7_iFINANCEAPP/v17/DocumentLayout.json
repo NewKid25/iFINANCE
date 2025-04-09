@@ -3,31 +3,11 @@
   "WorkspaceRootPath": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\models\\transactionline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:models\\transactionline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
       "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\models\\group.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:models\\group.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\models\\masteraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:models\\masteraccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\models\\administrator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:models\\administrator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\models\\accountcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:models\\accountcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\models\\model1.context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\models\\model1.context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:models\\model1.context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -43,83 +23,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TransactionLine.cs",
-              "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\TransactionLine.cs",
-              "RelativeDocumentMoniker": "Models\\TransactionLine.cs",
-              "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\TransactionLine.cs",
-              "RelativeToolTip": "Models\\TransactionLine.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T22:52:48.245Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MasterAccount.cs",
-              "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\MasterAccount.cs",
-              "RelativeDocumentMoniker": "Models\\MasterAccount.cs",
-              "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\MasterAccount.cs",
-              "RelativeToolTip": "Models\\MasterAccount.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T22:52:33.634Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Group.cs",
-              "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Group.cs",
-              "RelativeDocumentMoniker": "Models\\Group.cs",
-              "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Group.cs",
-              "RelativeToolTip": "Models\\Group.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T22:52:32.791Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Administrator.cs",
-              "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Administrator.cs",
-              "RelativeDocumentMoniker": "Models\\Administrator.cs",
-              "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Administrator.cs",
-              "RelativeToolTip": "Models\\Administrator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T22:52:31.447Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Model1.edmx [Diagram1]",
               "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Model1.edmx",
               "RelativeDocumentMoniker": "Models\\Model1.edmx",
               "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Model1.edmx [Diagram1]",
               "RelativeToolTip": "Models\\Model1.edmx [Diagram1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001116|",
-              "WhenOpened": "2025-04-05T22:51:28.344Z",
+              "WhenOpened": "2025-04-09T22:37:39.356Z",
               "EditorCaption": " [Diagram1]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AccountCategory.cs",
-              "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\AccountCategory.cs",
-              "RelativeDocumentMoniker": "Models\\AccountCategory.cs",
-              "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\AccountCategory.cs",
-              "RelativeToolTip": "Models\\AccountCategory.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-05T22:52:01.821Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "Model1.Context.cs",
               "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Model1.Context.cs",
               "RelativeDocumentMoniker": "Models\\Model1.Context.cs",

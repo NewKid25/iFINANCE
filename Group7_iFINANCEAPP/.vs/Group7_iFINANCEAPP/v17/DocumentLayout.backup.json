@@ -1,12 +1,53 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
+      "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\models\\model1.context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:models\\model1.context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Model1.edmx [Diagram1]",
+              "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Model1.edmx",
+              "RelativeDocumentMoniker": "Models\\Model1.edmx",
+              "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Model1.edmx [Diagram1]",
+              "RelativeToolTip": "Models\\Model1.edmx [Diagram1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001116|",
+              "WhenOpened": "2025-04-09T22:37:39.356Z",
+              "EditorCaption": " [Diagram1]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Model1.Context.cs",
+              "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Model1.Context.cs",
+              "RelativeDocumentMoniker": "Models\\Model1.Context.cs",
+              "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Models\\Model1.Context.cs",
+              "RelativeToolTip": "Models\\Model1.Context.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAmwBsAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-05T22:51:38.747Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

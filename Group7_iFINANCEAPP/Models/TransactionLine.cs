@@ -18,12 +18,12 @@ namespace Group7_iFINANCEAPP.Models
         public Nullable<double> creditedAmount { get; set; }
         public Nullable<double> debitedAmount { get; set; }
         public string comment { get; set; }
-        public Nullable<int> TransactionID { get; set; }
-        public Nullable<int> MasterAccountID { get; set; }
+        public int TransactionID { get; set; }
+        public int MasterAccountID { get; set; }
         public Nullable<int> MasterAccountID2 { get; set; }
     
-        public virtual MasterAccount FirstMasterAccount { get; set; }
-        public virtual MasterAccount SecondMasterAccount { get; set; }
+        public virtual MasterAccount MasterAccount { get; set; }
+        public virtual MasterAccount MasterAccount2 { get; set; }
         public virtual Transaction Transaction { get; set; }
     }
 }
