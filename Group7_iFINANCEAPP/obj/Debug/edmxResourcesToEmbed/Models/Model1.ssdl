@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Group7_iFINANCEDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AccountCategory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="type" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Administrator">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="dateHired" Type="date" />
+    <Property Name="dateFinished" Type="date" />
+  </EntityType>
+  <EntityType Name="Group">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="AccountCategoryID" Type="int" />
+  </EntityType>
+  <EntityType Name="MasterAccount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="openingAmount" Type="float" />
+    <Property Name="closingAmount" Type="float" />
+    <Property Name="GroupID" Type="int" />
+  </EntityType>
+  <EntityType Name="NonAdminUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="address" Type="varchar" MaxLength="100" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="AdministratorID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="date" Type="date" />
+    <Property Name="description" Type="varchar" MaxLength="150" />
+    <Property Name="NonAdminUserID" Type="int" />
+  </EntityType>
+  <EntityType Name="TransactionLine">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="creditedAmount" Type="float" />
+    <Property Name="debitedAmount" Type="float" />
+    <Property Name="comment" Type="varchar" MaxLength="150" />
+    <Property Name="TransactionID" Type="int" />
+    <Property Name="MasterAccountID" Type="int" />
+    <Property Name="MasterAccountID2" Type="int" />
+  </EntityType>
+  <EntityType Name="UserPassword">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="userName" Type="varchar" MaxLength="50" />
+    <Property Name="encryptedPassword" Type="varchar(max)" />
+    <Property Name="passwordExpiryTime" Type="datetime" />
+    <Property Name="userAccountExpiryDate" Type="date" />
+  </EntityType>
+  <Association Name="FK_Group_AccountCategory">
+    <End Role="AccountCategory" Type="Self.AccountCategory" Multiplicity="0..1" />
+    <End Role="Group" Type="Self.Group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccountCategory">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Group">
+        <PropertyRef Name="AccountCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterAccount_Group">
+    <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+    <End Role="MasterAccount" Type="Self.MasterAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="MasterAccount">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NonAdminUser_AdminUser">
+    <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
+    <End Role="NonAdminUser" Type="Self.NonAdminUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Administrator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="NonAdminUser">
+        <PropertyRef Name="AdministratorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_NonAdminUser">
+    <End Role="NonAdminUser" Type="Self.NonAdminUser" Multiplicity="0..1" />
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NonAdminUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="NonAdminUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionLine_MasterAccount">
+    <End Role="MasterAccount" Type="Self.MasterAccount" Multiplicity="0..1" />
+    <End Role="TransactionLine" Type="Self.TransactionLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterAccount">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TransactionLine">
+        <PropertyRef Name="MasterAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionLine_MasterAccount1">
+    <End Role="MasterAccount" Type="Self.MasterAccount" Multiplicity="0..1" />
+    <End Role="TransactionLine" Type="Self.TransactionLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterAccount">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TransactionLine">
+        <PropertyRef Name="MasterAccountID2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TransactionLine_Transaction">
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="0..1" />
+    <End Role="TransactionLine" Type="Self.TransactionLine" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TransactionLine">
+        <PropertyRef Name="TransactionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPassword_Administrator">
+    <End Role="Administrator" Type="Self.Administrator" Multiplicity="1" />
+    <End Role="UserPassword" Type="Self.UserPassword" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Administrator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserPassword">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPassword_NonAdminUser">
+    <End Role="NonAdminUser" Type="Self.NonAdminUser" Multiplicity="1" />
+    <End Role="UserPassword" Type="Self.UserPassword" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NonAdminUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserPassword">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Group7_iFINANCEDBModelStoreContainer">
+    <EntitySet Name="AccountCategory" EntityType="Self.AccountCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterAccount" EntityType="Self.MasterAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NonAdminUser" EntityType="Self.NonAdminUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TransactionLine" EntityType="Self.TransactionLine" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserPassword" EntityType="Self.UserPassword" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Group_AccountCategory" Association="Self.FK_Group_AccountCategory">
+      <End Role="AccountCategory" EntitySet="AccountCategory" />
+      <End Role="Group" EntitySet="Group" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterAccount_Group" Association="Self.FK_MasterAccount_Group">
+      <End Role="Group" EntitySet="Group" />
+      <End Role="MasterAccount" EntitySet="MasterAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NonAdminUser_AdminUser" Association="Self.FK_NonAdminUser_AdminUser">
+      <End Role="Administrator" EntitySet="Administrator" />
+      <End Role="NonAdminUser" EntitySet="NonAdminUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_NonAdminUser" Association="Self.FK_Transaction_NonAdminUser">
+      <End Role="NonAdminUser" EntitySet="NonAdminUser" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionLine_MasterAccount" Association="Self.FK_TransactionLine_MasterAccount">
+      <End Role="MasterAccount" EntitySet="MasterAccount" />
+      <End Role="TransactionLine" EntitySet="TransactionLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionLine_MasterAccount1" Association="Self.FK_TransactionLine_MasterAccount1">
+      <End Role="MasterAccount" EntitySet="MasterAccount" />
+      <End Role="TransactionLine" EntitySet="TransactionLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransactionLine_Transaction" Association="Self.FK_TransactionLine_Transaction">
+      <End Role="Transaction" EntitySet="Transaction" />
+      <End Role="TransactionLine" EntitySet="TransactionLine" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPassword_Administrator" Association="Self.FK_UserPassword_Administrator">
+      <End Role="Administrator" EntitySet="Administrator" />
+      <End Role="UserPassword" EntitySet="UserPassword" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPassword_NonAdminUser" Association="Self.FK_UserPassword_NonAdminUser">
+      <End Role="NonAdminUser" EntitySet="NonAdminUser" />
+      <End Role="UserPassword" EntitySet="UserPassword" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
