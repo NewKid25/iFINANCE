@@ -268,8 +268,8 @@
     <Content Include="Views\Transactions\Details.cshtml" />
     <Content Include="Views\Transactions\Edit.cshtml" />
     <Content Include="Views\Transactions\Index.cshtml" />
-    <Content Include="Views\Login\View.cshtml" />
-    <Content Include="Views\Reports\View.cshtml" />
+    <Content Include="Views\Login\LoginPage.cshtml" />
+    <Content Include="Views\Reports\ReportsPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
