@@ -17,9 +17,12 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Accounts", "Index", "NonAdminUsers", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Login", "View", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Groups", "Index", "Groups", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Chart of Accounts", "Index", "ChartAccounts", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Transactions", "Index", "Transactions", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Reports", "View", "Reports", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>
@@ -28,7 +31,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year -iFINANCE</p>
         </footer>
     </div>
 
