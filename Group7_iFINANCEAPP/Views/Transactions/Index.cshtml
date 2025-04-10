@@ -1,45 +1,48 @@
-﻿@model IEnumerable<Group7_iFINANCEAPP.Models.Transaction>
+﻿@model IEnumerable<Group7_iFINANCEAPP.Models.ViewModels.TransactionWithLinesViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Double-Entry Transactions</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Enter New Transaction", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NonAdminUser.name)
-        </th>
-        <th></th>
+        <th>Transaction ID</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Lines</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NonAdminUser.name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Transaction.ID</td>
+            <td>@item.Transaction.date</td>
+            <td>@item.Transaction.description</td>
+            <td>
+                <table class="table table-sm table-striped">
+                    <tr>
+                        <th>Line ID</th>
+                        <th>Credit</th>
+                        <th>Debit</th>
+                        <th>Comment</th>
+                    </tr>
+                    @foreach (var line in item.TransactionLines)
+                    {
+                        <tr>
+                            <td>@line.ID</td>
+                            <td>@line.creditedAmount</td>
+                            <td>@line.debitedAmount</td>
+                            <td>@line.comment</td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+    }
 
 </table>

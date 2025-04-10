@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Group7_iFINANCEAPP.Models;
+using Group7_iFINANCEAPP.Models.ViewModels;
 
 namespace Group7_iFINANCEAPP.Controllers
 {
@@ -17,9 +18,19 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: Transactions
         public ActionResult Index()
         {
-            var transaction = db.Transaction.Include(t => t.NonAdminUser);
-            return View(transaction.ToList());
+            var transactions = db.Transaction
+                                 .Include(t => t.TransactionLine)
+                                 .Include(t => t.NonAdminUser)
+                                 .ToList()
+                                 .Select(t => new TransactionWithLinesViewModel
+                                 {
+                                     Transaction = t,
+                                     TransactionLines = t.TransactionLine.ToList()
+                                 }).ToList();
+
+            return View(transactions);
         }
+
 
         // GET: Transactions/Details/5
         public ActionResult Details(int? id)
@@ -128,5 +139,23 @@ namespace Group7_iFINANCEAPP.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult TransactionsWithLines()
+        {
+            using (var db = new Group7_iFINANCEDBEntities())
+            {
+                var data = db.Transaction
+                             .Include(t => t.TransactionLine)
+                             .ToList()
+                             .Select(t => new TransactionWithLinesViewModel
+                             {
+                                 Transaction = t,
+                                 TransactionLines = t.TransactionLine.ToList()
+                             }).ToList();
+
+                return View(data);
+            }
+        }
+
     }
 }
