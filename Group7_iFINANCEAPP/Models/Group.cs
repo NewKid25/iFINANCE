@@ -18,16 +18,21 @@ namespace Group7_iFINANCEAPP.Models
         public Group()
         {
             this.MasterAccount = new HashSet<MasterAccount>();
+            this.Groups = new HashSet<Group>();
         }
     
         public int ID { get; set; }
         public string name { get; set; }
         public int AccountCategoryID { get; set; }
         public int NonAdminUserID { get; set; }
+        public Nullable<int> parentID { get; set; }
     
         public virtual AccountCategory AccountCategory { get; set; }
         public virtual NonAdminUser NonAdminUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MasterAccount> MasterAccount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Group> Groups { get; set; }
+        public virtual Group Parent { get; set; }
     }
 }

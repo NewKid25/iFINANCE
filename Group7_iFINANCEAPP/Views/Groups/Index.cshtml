@@ -9,6 +9,8 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<!--
 <table class="table">
     <tr>
         <th>
@@ -29,11 +31,33 @@
             @Html.DisplayFor(modelItem => item.AccountCategory.name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
     </tr>
 }
 
 </table>
+    -->
+
+
+@helper RenderSubgroup(Group7_iFINANCEAPP.Models.Group group)
+{
+    <details>
+        <summary>
+            @group.name @Html.ActionLink("Edit", "Edit", new { id = group.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = group.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = group.ID })
+        </summary>
+        @foreach (var subgroup in group.Groups)
+        {
+            @RenderSubgroup(subgroup)
+        }
+    </details>
+}
+
+@foreach (var group in Model.Where(i => i.parentID == null))
+{
+    @RenderSubgroup(group)
+}

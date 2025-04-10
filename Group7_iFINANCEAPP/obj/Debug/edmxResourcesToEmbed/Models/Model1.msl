@@ -20,16 +20,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Group">
-      <EntityTypeMapping TypeName="Group7_iFINANCEDBModel.Group">
-        <MappingFragment StoreEntitySet="Group">
-          <ScalarProperty Name="NonAdminUserID" ColumnName="NonAdminUserID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="AccountCategoryID" ColumnName="AccountCategoryID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MasterAccount">
       <EntityTypeMapping TypeName="Group7_iFINANCEDBModel.MasterAccount">
         <MappingFragment StoreEntitySet="MasterAccount">
@@ -85,6 +75,17 @@
           <ScalarProperty Name="encryptedPassword" ColumnName="encryptedPassword" />
           <ScalarProperty Name="passwordExpiryTime" ColumnName="passwordExpiryTime" />
           <ScalarProperty Name="userAccountExpiryDate" ColumnName="userAccountExpiryDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Group">
+      <EntityTypeMapping TypeName="Group7_iFINANCEDBModel.Group">
+        <MappingFragment StoreEntitySet="Group">
+          <ScalarProperty Name="parentID" ColumnName="parentID" />
+          <ScalarProperty Name="NonAdminUserID" ColumnName="NonAdminUserID" />
+          <ScalarProperty Name="AccountCategoryID" ColumnName="AccountCategoryID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

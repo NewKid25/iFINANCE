@@ -40,6 +40,7 @@ namespace Group7_iFINANCEAPP.Controllers
         public ActionResult Create()
         {
             ViewBag.AccountCategoryID = new SelectList(db.AccountCategory, "ID", "name");
+            ViewBag.NonAdminUserID = new SelectList(db.NonAdminUser, "ID", "name");
             return View();
         }
 
@@ -48,7 +49,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,name,AccountCategoryID")] Group group)
+        public ActionResult Create([Bind(Include = "ID,name,AccountCategoryID,NonAdminUserID")] Group group)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +59,7 @@ namespace Group7_iFINANCEAPP.Controllers
             }
 
             ViewBag.AccountCategoryID = new SelectList(db.AccountCategory, "ID", "name", group.AccountCategoryID);
+            ViewBag.NonAdminUserID = new SelectList(db.NonAdminUser, "ID", "name", group.NonAdminUserID);
             return View(group);
         }
 

@@ -25,6 +25,7 @@
     <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="AccountCategoryID" Type="int" Nullable="false" />
     <Property Name="NonAdminUserID" Type="int" Nullable="false" />
+    <Property Name="parentID" Type="int" />
   </EntityType>
   <EntityType Name="MasterAccount">
     <Key>
@@ -127,6 +128,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Parent_Groups">
+    <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+    <End Role="Group1" Type="Self.Group" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Group1">
+        <PropertyRef Name="parentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Transaction_NonAdminUser">
     <End Role="NonAdminUser" Type="Self.NonAdminUser" Multiplicity="1" />
     <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
@@ -223,6 +236,10 @@
     <AssociationSet Name="FK_NonAdminUser_AdminUser" Association="Self.FK_NonAdminUser_AdminUser">
       <End Role="Administrator" EntitySet="Administrator" />
       <End Role="NonAdminUser" EntitySet="NonAdminUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Parent_Groups" Association="Self.FK_Parent_Groups">
+      <End Role="Group" EntitySet="Group" />
+      <End Role="Group1" EntitySet="Group" />
     </AssociationSet>
     <AssociationSet Name="FK_Transaction_NonAdminUser" Association="Self.FK_Transaction_NonAdminUser">
       <End Role="NonAdminUser" EntitySet="NonAdminUser" />
