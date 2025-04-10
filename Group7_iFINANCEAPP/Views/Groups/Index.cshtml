@@ -57,7 +57,23 @@
     </details>
 }
 
-@foreach (var group in Model.Where(i => i.parentID == null))
-{
-    @RenderSubgroup(group)
-}
+@foreach (Group7_iFINANCEAPP.Models.AccountCategory accountCategory in ViewBag.AccountCategories)
+            {
+                <details>
+                    <summary>
+                        @accountCategory.name
+                    </summary>
+                    @foreach (var group in accountCategory.Group.Where(i => i.parentID == null))
+                    {
+                        @RenderSubgroup(group)
+                    }
+                </details>
+            }
+
+
+
+<style>
+    details details {
+        margin-left: 20px;
+    }
+</style>

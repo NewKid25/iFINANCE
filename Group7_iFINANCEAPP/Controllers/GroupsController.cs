@@ -18,6 +18,7 @@ namespace Group7_iFINANCEAPP.Controllers
         public ActionResult Index()
         {
             var group = db.Group.Include(g => g.AccountCategory);
+            ViewBag.AccountCategories = db.AccountCategory;
             return View(group.ToList());
         }
 
