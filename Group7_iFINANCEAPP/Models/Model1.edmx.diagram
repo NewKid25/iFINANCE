@@ -13,16 +13,16 @@
         <EntityTypeShape EntityType="Group7_iFINANCEDBModel.Transaction" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="Group7_iFINANCEDBModel.TransactionLine" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Group7_iFINANCEDBModel.UserPassword" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="Group7_iFINANCEDBModel.FK_NonAdminUser_AdminUser" ManuallyRouted="false" />
-        <AssociationConnector Association="Group7_iFINANCEDBModel.FK_Group_NonAdminUser" ></AssociationConnector>
         <AssociationConnector Association="Group7_iFINANCEDBModel.FK_Group_AccountCategory" />
+        <AssociationConnector Association="Group7_iFINANCEDBModel.FK_NonAdminUser_AdminUser" />
+        <AssociationConnector Association="Group7_iFINANCEDBModel.FK_UserPassword_Administrator" />
+        <AssociationConnector Association="Group7_iFINANCEDBModel.FK_Group_NonAdminUser" />
         <AssociationConnector Association="Group7_iFINANCEDBModel.FK_MasterAccount_Group" />
         <AssociationConnector Association="Group7_iFINANCEDBModel.FK_TransactionLine_MasterAccount" />
         <AssociationConnector Association="Group7_iFINANCEDBModel.FK_TransactionLine_MasterAccount1" />
         <AssociationConnector Association="Group7_iFINANCEDBModel.FK_Transaction_NonAdminUser" />
-        <AssociationConnector Association="Group7_iFINANCEDBModel.FK_TransactionLine_Transaction" />
-        <AssociationConnector Association="Group7_iFINANCEDBModel.FK_UserPassword_Administrator" />
         <AssociationConnector Association="Group7_iFINANCEDBModel.FK_UserPassword_NonAdminUser" />
+        <AssociationConnector Association="Group7_iFINANCEDBModel.FK_TransactionLine_Transaction" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -23,7 +23,7 @@ namespace Group7_iFINANCEAPP.Models
         public Nullable<int> MasterAccountID2 { get; set; }
     
         public virtual MasterAccount MasterAccount { get; set; }
-        public virtual MasterAccount MasterAccount2 { get; set; }
+        public virtual MasterAccount MasterAccount1 { get; set; }
         public virtual Transaction Transaction { get; set; }
     }
 }

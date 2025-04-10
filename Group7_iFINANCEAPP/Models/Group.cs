@@ -25,8 +25,8 @@ namespace Group7_iFINANCEAPP.Models
         public int AccountCategoryID { get; set; }
         public int NonAdminUserID { get; set; }
     
-        public virtual NonAdminUser NonAdminUser { get; set; }
         public virtual AccountCategory AccountCategory { get; set; }
+        public virtual NonAdminUser NonAdminUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MasterAccount> MasterAccount { get; set; }
     }
