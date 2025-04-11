@@ -21,7 +21,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="AccountCategoryID" Type="int" Nullable="false" />
     <Property Name="NonAdminUserID" Type="int" Nullable="false" />

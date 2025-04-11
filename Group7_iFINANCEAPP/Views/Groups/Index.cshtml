@@ -6,6 +6,8 @@
 
 <h2>Index</h2>
 
+@*
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -41,6 +43,7 @@
 </table>
     -->
 
+    *@
 
 @helper RenderSubgroup(Group7_iFINANCEAPP.Models.Group group)
 {
@@ -59,6 +62,7 @@
         {
             @RenderSubgroup(subgroup)
         }
+        @Html.ActionLink("Create New", "Create", new { accountCategoryId = group.AccountCategoryID, parentId = group.ID })
     </details>
 }
 
@@ -72,13 +76,16 @@
                     {
                         @RenderSubgroup(group)
                     }
+
+                    @Html.ActionLink("Create New", "Create", new { accountCategoryId = accountCategory.ID })
+
                 </details>
             }
 
 
 
 <style>
-    details details {
+    details details, details > a {
         margin-left: 20px;
     }
 

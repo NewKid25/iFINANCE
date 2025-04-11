@@ -38,10 +38,35 @@ namespace Group7_iFINANCEAPP.Controllers
         }
 
         // GET: Groups/Create
+
+        /*
         public ActionResult Create()
         {
             ViewBag.AccountCategoryID = new SelectList(db.AccountCategory, "ID", "name");
+            // TODO: Replace with currently authenticated user
             ViewBag.NonAdminUserID = new SelectList(db.NonAdminUser, "ID", "name");
+            return View();
+        }
+        */
+
+        public ActionResult Create(int? accountCategoryID, int? parentID)
+        {
+
+            if (parentID != null)
+            {
+                ViewBag.parentName = db.Group.Find(parentID).name;
+            }
+            else if (accountCategoryID != null)
+            {
+                ViewBag.parentName = db.AccountCategory.Find(accountCategoryID).name;
+            } else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            // TODO: Replace with currently authenticated user
+            ViewBag.NonAdminUserID = new SelectList(db.NonAdminUser, "ID", "name");
+
             return View();
         }
 
@@ -50,8 +75,14 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,AccountCategoryID,NonAdminUserID")] Group group)
+        public ActionResult Create([Bind(Include = "name,AccountCategoryID,NonAdminUserID")] Group group, int?parentID)
         {
+            if (parentID != null)
+            {
+                group.parentID = parentID;
+                group.AccountCategoryID = db.Group.Find(parentID).AccountCategoryID;
+            }
+
             if (ModelState.IsValid)
             {
                 db.Group.Add(group);
