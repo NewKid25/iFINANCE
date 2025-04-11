@@ -26,10 +26,11 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AccountCategoryID" Type="int" Nullable="false" />
           <Property Name="NonAdminUserID" Type="int" Nullable="false" />
+          <Property Name="parentID" Type="int" />
         </EntityType>
         <EntityType Name="MasterAccount">
           <Key>
@@ -132,6 +133,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Parent_Groups">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Group1" Type="Self.Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group1">
+              <PropertyRef Name="parentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Transaction_NonAdminUser">
           <End Role="NonAdminUser" Type="Self.NonAdminUser" Multiplicity="1" />
           <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
@@ -229,6 +242,10 @@
             <End Role="Administrator" EntitySet="Administrator" />
             <End Role="NonAdminUser" EntitySet="NonAdminUser" />
           </AssociationSet>
+          <AssociationSet Name="FK_Parent_Groups" Association="Self.FK_Parent_Groups">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Group1" EntitySet="Group" />
+          </AssociationSet>
           <AssociationSet Name="FK_Transaction_NonAdminUser" Association="Self.FK_Transaction_NonAdminUser">
             <End Role="NonAdminUser" EntitySet="NonAdminUser" />
             <End Role="Transaction" EntitySet="Transaction" />
@@ -278,18 +295,6 @@
           <NavigationProperty Name="NonAdminUser" Relationship="Group7_iFINANCEDBModel.FK_NonAdminUser_AdminUser" FromRole="Administrator" ToRole="NonAdminUser" />
           <NavigationProperty Name="UserPassword" Relationship="Group7_iFINANCEDBModel.FK_UserPassword_Administrator" FromRole="Administrator" ToRole="UserPassword" />
         </EntityType>
-        <EntityType Name="Group">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AccountCategoryID" Type="Int32" Nullable="false" />
-          <Property Name="NonAdminUserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AccountCategory" Relationship="Group7_iFINANCEDBModel.FK_Group_AccountCategory" FromRole="Group" ToRole="AccountCategory" />
-          <NavigationProperty Name="NonAdminUser" Relationship="Group7_iFINANCEDBModel.FK_Group_NonAdminUser" FromRole="Group" ToRole="NonAdminUser" />
-          <NavigationProperty Name="MasterAccount" Relationship="Group7_iFINANCEDBModel.FK_MasterAccount_Group" FromRole="Group" ToRole="MasterAccount" />
-        </EntityType>
         <EntityType Name="MasterAccount">
           <Key>
             <PropertyRef Name="ID" />
@@ -299,9 +304,9 @@
           <Property Name="openingAmount" Type="Double" Nullable="false" />
           <Property Name="closingAmount" Type="Double" Nullable="false" />
           <Property Name="GroupID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Group" Relationship="Group7_iFINANCEDBModel.FK_MasterAccount_Group" FromRole="MasterAccount" ToRole="Group" />
           <NavigationProperty Name="TransactionLine" Relationship="Group7_iFINANCEDBModel.FK_TransactionLine_MasterAccount" FromRole="MasterAccount" ToRole="TransactionLine" />
           <NavigationProperty Name="TransactionLine1" Relationship="Group7_iFINANCEDBModel.FK_TransactionLine_MasterAccount1" FromRole="MasterAccount" ToRole="TransactionLine" />
+          <NavigationProperty Name="Group" Relationship="Group7_iFINANCEDBModel.FK_MasterAccount_Group" FromRole="MasterAccount" ToRole="Group" />
         </EntityType>
         <EntityType Name="NonAdminUser">
           <Key>
@@ -313,9 +318,9 @@
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AdministratorID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Administrator" Relationship="Group7_iFINANCEDBModel.FK_NonAdminUser_AdminUser" FromRole="NonAdminUser" ToRole="Administrator" />
-          <NavigationProperty Name="Group" Relationship="Group7_iFINANCEDBModel.FK_Group_NonAdminUser" FromRole="NonAdminUser" ToRole="Group" />
           <NavigationProperty Name="Transaction" Relationship="Group7_iFINANCEDBModel.FK_Transaction_NonAdminUser" FromRole="NonAdminUser" ToRole="Transaction" />
           <NavigationProperty Name="UserPassword" Relationship="Group7_iFINANCEDBModel.FK_UserPassword_NonAdminUser" FromRole="NonAdminUser" ToRole="UserPassword" />
+          <NavigationProperty Name="Group" Relationship="Group7_iFINANCEDBModel.FK_Group_NonAdminUser" FromRole="NonAdminUser" ToRole="Group" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -360,16 +365,11 @@
         <EntityContainer Name="Group7_iFINANCEDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccountCategory" EntityType="Self.AccountCategory" />
           <EntitySet Name="Administrator" EntityType="Self.Administrator" />
-          <EntitySet Name="Group" EntityType="Self.Group" />
           <EntitySet Name="MasterAccount" EntityType="Self.MasterAccount" />
           <EntitySet Name="NonAdminUser" EntityType="Self.NonAdminUser" />
           <EntitySet Name="Transaction" EntityType="Self.Transaction" />
           <EntitySet Name="TransactionLine" EntityType="Self.TransactionLine" />
           <EntitySet Name="UserPassword" EntityType="Self.UserPassword" />
-          <AssociationSet Name="FK_Group_AccountCategory" Association="Group7_iFINANCEDBModel.FK_Group_AccountCategory">
-            <End Role="AccountCategory" EntitySet="AccountCategory" />
-            <End Role="Group" EntitySet="Group" />
-          </AssociationSet>
           <AssociationSet Name="FK_NonAdminUser_AdminUser" Association="Group7_iFINANCEDBModel.FK_NonAdminUser_AdminUser">
             <End Role="Administrator" EntitySet="Administrator" />
             <End Role="NonAdminUser" EntitySet="NonAdminUser" />
@@ -377,14 +377,6 @@
           <AssociationSet Name="FK_UserPassword_Administrator" Association="Group7_iFINANCEDBModel.FK_UserPassword_Administrator">
             <End Role="Administrator" EntitySet="Administrator" />
             <End Role="UserPassword" EntitySet="UserPassword" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Group_NonAdminUser" Association="Group7_iFINANCEDBModel.FK_Group_NonAdminUser">
-            <End Role="NonAdminUser" EntitySet="NonAdminUser" />
-            <End Role="Group" EntitySet="Group" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MasterAccount_Group" Association="Group7_iFINANCEDBModel.FK_MasterAccount_Group">
-            <End Role="Group" EntitySet="Group" />
-            <End Role="MasterAccount" EntitySet="MasterAccount" />
           </AssociationSet>
           <AssociationSet Name="FK_TransactionLine_MasterAccount" Association="Group7_iFINANCEDBModel.FK_TransactionLine_MasterAccount">
             <End Role="MasterAccount" EntitySet="MasterAccount" />
@@ -406,19 +398,24 @@
             <End Role="Transaction" EntitySet="Transaction" />
             <End Role="TransactionLine" EntitySet="TransactionLine" />
           </AssociationSet>
+          <EntitySet Name="Group" EntityType="Group7_iFINANCEDBModel.Group" />
+          <AssociationSet Name="FK_Group_AccountCategory" Association="Group7_iFINANCEDBModel.FK_Group_AccountCategory">
+            <End Role="AccountCategory" EntitySet="AccountCategory" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_NonAdminUser" Association="Group7_iFINANCEDBModel.FK_Group_NonAdminUser">
+            <End Role="NonAdminUser" EntitySet="NonAdminUser" />
+            <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MasterAccount_Group" Association="Group7_iFINANCEDBModel.FK_MasterAccount_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="MasterAccount" EntitySet="MasterAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parent_Groups" Association="Group7_iFINANCEDBModel.FK_Parent_Groups">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Group1" EntitySet="Group" />
+          </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_Group_AccountCategory">
-          <End Type="Group7_iFINANCEDBModel.AccountCategory" Role="AccountCategory" Multiplicity="1" />
-          <End Type="Group7_iFINANCEDBModel.Group" Role="Group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AccountCategory">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Group">
-              <PropertyRef Name="AccountCategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_NonAdminUser_AdminUser">
           <End Type="Group7_iFINANCEDBModel.Administrator" Role="Administrator" Multiplicity="1" />
           <End Type="Group7_iFINANCEDBModel.NonAdminUser" Role="NonAdminUser" Multiplicity="*" />
@@ -440,30 +437,6 @@
             </Principal>
             <Dependent Role="UserPassword">
               <PropertyRef Name="AdministratorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Group_NonAdminUser">
-          <End Type="Group7_iFINANCEDBModel.NonAdminUser" Role="NonAdminUser" Multiplicity="1" />
-          <End Type="Group7_iFINANCEDBModel.Group" Role="Group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NonAdminUser">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Group">
-              <PropertyRef Name="NonAdminUserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MasterAccount_Group">
-          <End Type="Group7_iFINANCEDBModel.Group" Role="Group" Multiplicity="1" />
-          <End Type="Group7_iFINANCEDBModel.MasterAccount" Role="MasterAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Group">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="MasterAccount">
-              <PropertyRef Name="GroupID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -527,6 +500,69 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="NonAdminUserID" Type="Int32" Nullable="false" />
+          <Property Name="parentID" Type="Int32" />
+          <NavigationProperty Name="AccountCategory" Relationship="Group7_iFINANCEDBModel.FK_Group_AccountCategory" FromRole="Group" ToRole="AccountCategory" />
+          <NavigationProperty Name="NonAdminUser" Relationship="Group7_iFINANCEDBModel.FK_Group_NonAdminUser" FromRole="Group" ToRole="NonAdminUser" />
+          <NavigationProperty Name="MasterAccount" Relationship="Group7_iFINANCEDBModel.FK_MasterAccount_Group" FromRole="Group" ToRole="MasterAccount" />
+          <NavigationProperty Name="Groups" Relationship="Group7_iFINANCEDBModel.FK_Parent_Groups" FromRole="Group" ToRole="Group1" />
+          <NavigationProperty Name="Parent" Relationship="Group7_iFINANCEDBModel.FK_Parent_Groups" FromRole="Group1" ToRole="Group" />
+        </EntityType>
+        <Association Name="FK_Group_AccountCategory">
+          <End Type="Group7_iFINANCEDBModel.AccountCategory" Role="AccountCategory" Multiplicity="1" />
+          <End Type="Group7_iFINANCEDBModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="AccountCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_NonAdminUser">
+          <End Type="Group7_iFINANCEDBModel.NonAdminUser" Role="NonAdminUser" Multiplicity="1" />
+          <End Type="Group7_iFINANCEDBModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NonAdminUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="NonAdminUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MasterAccount_Group">
+          <End Type="Group7_iFINANCEDBModel.Group" Role="Group" Multiplicity="1" />
+          <End Type="Group7_iFINANCEDBModel.MasterAccount" Role="MasterAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MasterAccount">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parent_Groups">
+          <End Type="Group7_iFINANCEDBModel.Group" Role="Group" Multiplicity="0..1" />
+          <End Type="Group7_iFINANCEDBModel.Group" Role="Group1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group1">
+              <PropertyRef Name="parentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -549,16 +585,6 @@
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="dateHired" ColumnName="dateHired" />
                 <ScalarProperty Name="dateFinished" ColumnName="dateFinished" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Group">
-            <EntityTypeMapping TypeName="Group7_iFINANCEDBModel.Group">
-              <MappingFragment StoreEntitySet="Group">
-                <ScalarProperty Name="NonAdminUserID" ColumnName="NonAdminUserID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="AccountCategoryID" ColumnName="AccountCategoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -617,6 +643,17 @@
                 <ScalarProperty Name="encryptedPassword" ColumnName="encryptedPassword" />
                 <ScalarProperty Name="passwordExpiryTime" ColumnName="passwordExpiryTime" />
                 <ScalarProperty Name="userAccountExpiryDate" ColumnName="userAccountExpiryDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group">
+            <EntityTypeMapping TypeName="Group7_iFINANCEDBModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="parentID" ColumnName="parentID" />
+                <ScalarProperty Name="NonAdminUserID" ColumnName="NonAdminUserID" />
+                <ScalarProperty Name="AccountCategoryID" ColumnName="AccountCategoryID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
