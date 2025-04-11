@@ -3,22 +3,23 @@
   "WorkspaceRootPath": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\controllers\\groupscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\controllers\\groupscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:controllers\\groupscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\views\\groups\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\views\\groups\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:views\\groups\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/JASPER_LAPTOP/Group7_iFINANCEDB/True/SqlTable/dbo.NonAdminUser.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+      "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|c:\\projects\\ifinance\\group7_ifinanceapp\\views\\groups\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:views\\groups\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\views\\groups\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:views\\groups\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/JASPER_LAPTOP/Group7_iFINANCEDB/True/SqlTable/dbo.Administrator.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/JASPER_LAPTOP/Group7_iFINANCEDB/True/SqlTable/dbo.NonAdminUser.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\models\\group.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,9 +31,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
       "RelativeMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|solutionrelative:models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/JASPER_LAPTOP/Group7_iFINANCEDB/True/SqlTable/dbo.Group.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{59AFFEC7-9DB7-4294-94A3-49D91011F8C0}|Group7_iFINANCEAPP.csproj|C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
@@ -50,7 +48,20 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 2,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Views\\Groups\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Views\\Groups\\Edit.cshtml",
+              "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Views\\Groups\\Edit.cshtml",
+              "RelativeToolTip": "Views\\Groups\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-11T01:22:15.415Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Web.config",
               "DocumentMoniker": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Web.config",
               "RelativeDocumentMoniker": "Web.config",
@@ -93,8 +104,7 @@
               "RelativeToolTip": "Models\\Group.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-10T04:07:01.085Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-10T04:07:01.085Z"
             },
             {
               "$type": "Document",
@@ -104,28 +114,19 @@
               "RelativeDocumentMoniker": "Views\\Groups\\Index.cshtml",
               "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Views\\Groups\\Index.cshtml",
               "RelativeToolTip": "Views\\Groups\\Index.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAEQAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAFYAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-10T03:57:19.224Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "dbo.NonAdminUser.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/JASPER_LAPTOP/Group7_iFINANCEDB/True/SqlTable/dbo.NonAdminUser.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/JASPER_LAPTOP/Group7_iFINANCEDB/True/SqlTable/dbo.NonAdminUser.sql",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
               "WhenOpened": "2025-04-10T03:48:34.535Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "dbo.Administrator.sql",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/JASPER_LAPTOP/Group7_iFINANCEDB/True/SqlTable/dbo.Administrator.sql",
-              "ToolTip": "ViewDataWindow_MSSQL__/JASPER_LAPTOP/Group7_iFINANCEDB/True/SqlTable/dbo.Administrator.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-04-10T03:48:20.812Z"
             },
             {
               "$type": "Document",
@@ -135,7 +136,7 @@
               "RelativeDocumentMoniker": "Views\\Groups\\Create.cshtml",
               "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Views\\Groups\\Create.cshtml",
               "RelativeToolTip": "Views\\Groups\\Create.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAABqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-10T03:43:44.558Z",
               "EditorCaption": ""
@@ -148,19 +149,10 @@
               "RelativeDocumentMoniker": "Controllers\\GroupsController.cs",
               "ToolTip": "C:\\Projects\\iFINANCE\\Group7_iFINANCEAPP\\Controllers\\GroupsController.cs",
               "RelativeToolTip": "Controllers\\GroupsController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAwCgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAAqwE4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-09T22:04:24.53Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "dbo.Group.sql",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/JASPER_LAPTOP/Group7_iFINANCEDB/True/SqlTable/dbo.Group.sql",
-              "ToolTip": "ViewDataWindow_MSSQL__/JASPER_LAPTOP/Group7_iFINANCEDB/True/SqlTable/dbo.Group.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2025-04-10T05:07:11.064Z"
             }
           ]
         }

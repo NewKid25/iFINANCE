@@ -50,7 +50,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,name,AccountCategoryID,NonAdminUserID")] Group group)
+        public ActionResult Create([Bind(Include = "name,AccountCategoryID,NonAdminUserID")] Group group)
         {
             if (ModelState.IsValid)
             {
@@ -76,13 +76,19 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AccountCategoryID = new SelectList(db.AccountCategory, "ID", "name", group.AccountCategoryID);
+
             return View(group);
         }
 
         // POST: Groups/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+        // This was the auto-generated code, but does not work because Bind will clear
+        // all the non-bound attributes, but we don't want to bind to every attribute. Updated method below
+        // See: https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#update-httppost-edit-method
+
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,name,AccountCategoryID")] Group group)
@@ -94,6 +100,41 @@ namespace Group7_iFINANCEAPP.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.AccountCategoryID = new SelectList(db.AccountCategory, "ID", "name", group.AccountCategoryID);
+            return View(group);
+        }
+        */
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            var group = db.Group.Find(id);
+            if (group == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (TryUpdateModel(group, "",
+                new string[] { "name" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+
             return View(group);
         }
 

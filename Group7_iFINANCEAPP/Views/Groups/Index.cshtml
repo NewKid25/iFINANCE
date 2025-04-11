@@ -47,8 +47,13 @@
     <details>
         <summary>
             @group.name @Html.ActionLink("Edit", "Edit", new { id = group.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = group.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = group.ID })
+            @if (group.Groups.Count == 0)
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = group.ID })
+            } else
+            {
+                <span class="disabled-link" title="Must delete all subgroups first">Delete</span>
+            }
         </summary>
         @foreach (var subgroup in group.Groups)
         {
@@ -75,5 +80,10 @@
 <style>
     details details {
         margin-left: 20px;
+    }
+
+    .disabled-link {
+        color: cadetblue;
+        text-decoration: underline dotted;
     }
 </style>
