@@ -27,11 +27,11 @@ namespace Group7_iFINANCEAPP.Models
     
         public virtual DbSet<AccountCategory> AccountCategory { get; set; }
         public virtual DbSet<Administrator> Administrator { get; set; }
-        public virtual DbSet<Group> Group { get; set; }
         public virtual DbSet<MasterAccount> MasterAccount { get; set; }
         public virtual DbSet<NonAdminUser> NonAdminUser { get; set; }
         public virtual DbSet<Transaction> Transaction { get; set; }
         public virtual DbSet<TransactionLine> TransactionLine { get; set; }
         public virtual DbSet<UserPassword> UserPassword { get; set; }
+        public virtual DbSet<Group> Group { get; set; }
     }
 }
