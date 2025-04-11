@@ -1,0 +1,66 @@
+﻿@model Group7_iFINANCEAPP.Models.TransactionLine
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transaction Line</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Credit Value
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creditedAmount)
+        </dd>
+
+        <dt>
+            Credit Account
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MasterAccount.name)
+        </dd>
+
+        <dt>
+            Debit Value
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.debitedAmount)
+        </dd>
+
+        <dt>
+            Debit Account
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MasterAccount1.name)
+        </dd>
+
+        <dt>
+            Comment
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comment)
+        </dd>
+
+        <dt>
+            Description
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transaction.description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", "TransactionLines", new { id = Model.ID }, new { @class = "btn btn-primary"})
+    @Html.ActionLink("Back to List", "Index", "Transactions", null, new { @class = "btn btn-secondary"})
+</p>
