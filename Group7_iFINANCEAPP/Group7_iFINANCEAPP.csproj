@@ -135,6 +135,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NonAdminUsersController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\TransactionLinesController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -271,6 +272,10 @@
     <Content Include="Views\Transactions\Index.cshtml" />
     <Content Include="Views\Login\LoginPage.cshtml" />
     <Content Include="Views\Reports\ReportsPage.cshtml" />
+    <Content Include="Views\TransactionLines\Create.cshtml" />
+    <Content Include="Views\TransactionLines\Delete.cshtml" />
+    <Content Include="Views\TransactionLines\Details.cshtml" />
+    <Content Include="Views\TransactionLines\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

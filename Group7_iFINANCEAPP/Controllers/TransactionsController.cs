@@ -125,9 +125,20 @@ namespace Group7_iFINANCEAPP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Transaction transaction = db.Transaction.Find(id);
-            db.Transaction.Remove(transaction);
-            db.SaveChanges();
+            Transaction transaction = db.Transaction
+                .Include(t => t.TransactionLine)
+                .SingleOrDefault(t => t.ID == id);
+
+            if (transaction != null)
+            {
+                foreach (var line in transaction.TransactionLine.ToList())
+                {
+                    db.TransactionLine.Remove(line);
+                }
+
+                db.Transaction.Remove(transaction);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 
@@ -156,6 +167,5 @@ namespace Group7_iFINANCEAPP.Controllers
                 return View(data);
             }
         }
-
     }
 }
