@@ -17,7 +17,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: ChartAccounts
         public ActionResult Index()
         {
-            return View(db.AccountCategory.ToList());
+            return View(db.MasterAccount.ToList());
         }
 
         // GET: ChartAccounts/Details/5
@@ -27,17 +27,19 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AccountCategory accountCategory = db.AccountCategory.Find(id);
-            if (accountCategory == null)
+            MasterAccount masterAccount = db.MasterAccount.Find(id);
+            if (masterAccount == null)
             {
                 return HttpNotFound();
             }
-            return View(accountCategory);
+            return View(masterAccount);
         }
 
         // GET: ChartAccounts/Create
         public ActionResult Create()
         {
+            var groups = db.Group.ToList();
+            ViewBag.GroupID = new SelectList(groups, "ID", "name");
             return View();
         }
 
@@ -46,16 +48,16 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,name,type")] AccountCategory accountCategory)
+        public ActionResult Create([Bind(Include = "ID,name,openingAmount,closingAmount,GroupID")] MasterAccount masterAccount)
         {
             if (ModelState.IsValid)
             {
-                db.AccountCategory.Add(accountCategory);
+                db.MasterAccount.Add(masterAccount);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(accountCategory);
+            return View(masterAccount);
         }
 
         // GET: ChartAccounts/Edit/5
@@ -65,12 +67,14 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AccountCategory accountCategory = db.AccountCategory.Find(id);
-            if (accountCategory == null)
+            MasterAccount masterAccount = db.MasterAccount.Find(id);
+            if (masterAccount == null)
             {
                 return HttpNotFound();
             }
-            return View(accountCategory);
+            var groups = db.Group.ToList();
+            ViewBag.GroupID = new SelectList(groups, "ID", "name", masterAccount.GroupID);
+            return View(masterAccount);
         }
 
         // POST: ChartAccounts/Edit/5
@@ -78,15 +82,15 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,name,type")] AccountCategory accountCategory)
+        public ActionResult Edit([Bind(Include = "ID,name,openingAmount,closingAmount,GroupID")] MasterAccount masterAccount)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(accountCategory).State = EntityState.Modified;
+                db.Entry(masterAccount).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(accountCategory);
+            return View(masterAccount);
         }
 
         // GET: ChartAccounts/Delete/5
@@ -96,12 +100,12 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AccountCategory accountCategory = db.AccountCategory.Find(id);
-            if (accountCategory == null)
+            MasterAccount masterAccount = db.MasterAccount.Find(id);
+            if (masterAccount == null)
             {
                 return HttpNotFound();
             }
-            return View(accountCategory);
+            return View(masterAccount);
         }
 
         // POST: ChartAccounts/Delete/5
@@ -109,8 +113,8 @@ namespace Group7_iFINANCEAPP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AccountCategory accountCategory = db.AccountCategory.Find(id);
-            db.AccountCategory.Remove(accountCategory);
+            MasterAccount masterAccount = db.MasterAccount.Find(id);
+            db.MasterAccount.Remove(masterAccount);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

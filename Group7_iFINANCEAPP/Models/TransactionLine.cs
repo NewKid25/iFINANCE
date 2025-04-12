@@ -11,22 +11,9 @@ namespace Group7_iFINANCEAPP.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-
+    
     public partial class TransactionLine
     {
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (MasterAccountID == MasterAccountID2)
-            {
-                yield return new ValidationResult(
-                    "Credit and Debit accounts must be different.",
-                    new[] { "MasterAccountID", "MasterAccountID2" }
-                );
-            }
-        }
-
         public int ID { get; set; }
         public Nullable<double> creditedAmount { get; set; }
         public Nullable<double> debitedAmount { get; set; }

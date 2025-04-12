@@ -1,39 +1,61 @@
-﻿@model IEnumerable<Group7_iFINANCEAPP.Models.AccountCategory>
+﻿@model IEnumerable<Group7_iFINANCEAPP.Models.MasterAccount>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Chart of Accounts Page</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add New Master Account", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.type)
-        </th>
+        <th></th>
+        <th>Number</th>
+        <th>Account Name</th>
+        <th>Open Amount</th>
+        <th>Closing Amount</th>
+        <th>Group Name</th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @if (Model != null)
+    {
+        foreach (var account in Model)
+        {
+            @RenderAccount(account)
+        }
+    }
+    @*@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>*@
+</table>
+
+@helper RenderAccount(Group7_iFINANCEAPP.Models.MasterAccount account)
+{
     <tr>
+        <td></td>
+        <td>@Html.DisplayFor(modelItem => account.ID)</td>
+        <td>@Html.DisplayFor(modelItem => account.name)</td>
+        <td>@Html.DisplayFor(modelItem => account.openingAmount)</td>
+        <td>@Html.DisplayFor(modelItem => account.closingAmount)</td>
+        <td>@Html.DisplayFor(modelItem => account.Group.name)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.type)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id = account.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = account.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = account.ID })
         </td>
     </tr>
-}
-
-</table>
+} 
