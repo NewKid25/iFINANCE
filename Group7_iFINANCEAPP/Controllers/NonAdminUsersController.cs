@@ -19,6 +19,11 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: NonAdminUsers
         public ActionResult Index()
         {
+            if (Session["AdministratorID"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var nonAdminUser = db.NonAdminUser.Include(n => n.Administrator);
             return View(nonAdminUser.ToList());
         }

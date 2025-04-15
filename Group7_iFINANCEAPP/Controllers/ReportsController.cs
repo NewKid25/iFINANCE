@@ -11,6 +11,11 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: Reports
         public ActionResult ReportsPage()
         {
+            if (Session["NonAdminUserID"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
     }

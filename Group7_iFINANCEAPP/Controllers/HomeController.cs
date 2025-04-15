@@ -10,6 +10,11 @@ namespace Group7_iFINANCEAPP.Controllers
     {
         public ActionResult Index()
         {
+            if (Session["NonAdminUserID"] == null && Session["AdministratorID"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
 

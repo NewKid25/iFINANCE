@@ -17,6 +17,11 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: ChartAccounts
         public ActionResult Index()
         {
+            if (Session["NonAdminUserID"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View(db.AccountCategory.ToList());
         }
 

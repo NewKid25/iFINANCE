@@ -17,6 +17,11 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: Groups
         public ActionResult Index()
         {
+            if (Session["NonAdminUserID"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var group = db.Group.Include(g => g.AccountCategory);
             ViewBag.AccountCategories = db.AccountCategory;
             return View(group.ToList());

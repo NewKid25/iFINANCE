@@ -18,6 +18,11 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: Transactions
         public ActionResult Index()
         {
+            if (Session["NonAdminUserID"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var transactions = db.Transaction
                                  .Include(t => t.TransactionLine)
                                  .Include(t => t.NonAdminUser)
