@@ -46,7 +46,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,name,type")] AccountCategory accountCategory)
+        public ActionResult Create([Bind(Include = "name,type")] AccountCategory accountCategory)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,name,type")] AccountCategory accountCategory)
+        public ActionResult Edit([Bind(Include = "name,type")] AccountCategory accountCategory)
         {
             if (ModelState.IsValid)
             {
