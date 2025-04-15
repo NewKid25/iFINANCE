@@ -48,7 +48,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,name,address,email,AdministratorID")] NonAdminUser nonAdminUser)
+        public ActionResult Create([Bind(Include = "name,address,email,AdministratorID")] NonAdminUser nonAdminUser)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,name,address,email,AdministratorID")] NonAdminUser nonAdminUser)
+        public ActionResult Edit([Bind(Include = "name,address,email,AdministratorID")] NonAdminUser nonAdminUser)
         {
             if (ModelState.IsValid)
             {
