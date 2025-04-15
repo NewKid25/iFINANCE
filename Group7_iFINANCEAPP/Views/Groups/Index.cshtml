@@ -33,7 +33,11 @@
                     <summary>
                         @accountCategory.name
                     </summary>
-                    @foreach (var group in accountCategory.Group.Where(i => i.parentID == null))
+                    
+                    @{ 
+                        int nonAdminUserID = (int)Session["NonAdminUserID"];
+                    }
+                    @foreach (var group in accountCategory.Group.Where(i => i.parentID == null && i.NonAdminUserID == nonAdminUserID))
                     {
                         @RenderSubgroup(group)
                     }

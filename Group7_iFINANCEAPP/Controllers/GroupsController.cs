@@ -22,9 +22,16 @@ namespace Group7_iFINANCEAPP.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            var group = db.Group.Include(g => g.AccountCategory);
+            int nonAdminUserID = (int)Session["NonAdminUserID"];
+            
+            var group = db.Group.Where(g => g.NonAdminUserID == nonAdminUserID).Include(g => g.AccountCategory);
+
+
             ViewBag.AccountCategories = db.AccountCategory;
+            var k = group.ToList();
+
             return View(group.ToList());
+            
         }
 
         // GET: Groups/Details/5
@@ -80,13 +87,15 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,AccountCategoryID,NonAdminUserID")] Group group, int?parentID)
+        public ActionResult Create([Bind(Include = "name,AccountCategoryID")] Group group, int?parentID)
         {
             if (parentID != null)
             {
                 group.parentID = parentID;
                 group.AccountCategoryID = db.Group.Find(parentID).AccountCategoryID;
             }
+            
+            group.NonAdminUserID = (int)Session["NonAdminUserID"];
 
             if (ModelState.IsValid)
             {
