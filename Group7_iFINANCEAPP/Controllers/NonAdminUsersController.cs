@@ -115,18 +115,85 @@ namespace Group7_iFINANCEAPP.Controllers
         // POST: NonAdminUsers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "name,address,email,AdministratorID")] NonAdminUser nonAdminUser)
         {
             if (ModelState.IsValid)
             {
+                
+                if (Request.Form["password"].Length > 0)
+                {
+                    byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
+                    byte[] hash = SHA256.Create().ComputeHash(pass);
+
+                    int? nonAdminUserID = id;
+
+                    UserPassword pwd = db.UserPassword.Where(p => p.NonAdminUserID == nonAdminUserID).FirstOrDefault();
+
+                    pwd.encryptedPassword = GetHashString(hash);
+                    //db.Entry(pwd).State = EntityState.Modified;
+                    //db.SaveChanges();
+
+                }
+                
                 db.Entry(nonAdminUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.AdministratorID = new SelectList(db.Administrator, "ID", "name", nonAdminUser.AdministratorID);
             return View(nonAdminUser);
+        }
+        */
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var nonAdminUser = db.NonAdminUser.Find(id);
+            if (nonAdminUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (Request.Form["password"].Length > 0)
+            {
+                byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
+                byte[] hash = SHA256.Create().ComputeHash(pass);
+
+                int? nonAdminUserID = id;
+
+                UserPassword pwd = db.UserPassword.Where(p => p.NonAdminUserID == nonAdminUserID).FirstOrDefault();
+
+                pwd.encryptedPassword = GetHashString(hash);
+                db.Entry(pwd).State = EntityState.Modified;
+            }
+
+            if (TryUpdateModel(nonAdminUser, "",
+                new string[] { "name", "address", "email", "AdministratorID" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            ViewBag.AdministratorID = new SelectList(db.Administrator, "ID", "name", nonAdminUser.AdministratorID);
+            return View(nonAdminUser);
+
         }
 
         // GET: NonAdminUsers/Delete/5
