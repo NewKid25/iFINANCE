@@ -75,3 +75,16 @@ _[Ss]cripts
 *.ncrunchsolution
 *.dot[Cc]over
 Group7_iFINANCEAPP/Web.config
+
+# Visual Studio user-specific files
+.vs/
+*.user
+*.suo
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Others
+*.log
+*.tmp
