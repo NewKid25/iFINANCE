@@ -51,9 +51,11 @@ namespace Group7_iFINANCEAPP.Controllers
                 line.TransactionID = transactionId.Value;
             }
 
-            ViewBag.MasterAccountID = new SelectList(db.MasterAccount, "ID", "name");
-            ViewBag.MasterAccountID2 = new SelectList(db.MasterAccount, "ID", "name");
-            ViewBag.TransactionID = new SelectList(db.Transaction, "ID", "description");
+            int nonAdminUserID = (int)Session["NonAdminUserID"];
+
+            ViewBag.MasterAccountID = new SelectList(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID), "ID", "name");
+            ViewBag.MasterAccountID2 = new SelectList(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID), "ID", "name");
+            ViewBag.TransactionID = new SelectList(db.Transaction.Where(t => t.NonAdminUserID == nonAdminUserID), "ID", "description");
             return View(line);
         }
 

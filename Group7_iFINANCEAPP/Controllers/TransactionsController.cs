@@ -23,7 +23,10 @@ namespace Group7_iFINANCEAPP.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
+            var nonAdminUserID = (int)Session["NonAdminUserID"];
+
             var transactions = db.Transaction
+                                 .Where(t => t.NonAdminUserID == nonAdminUserID)
                                  .Include(t => t.TransactionLine)
                                  .Include(t => t.NonAdminUser)
                                  .ToList()
@@ -55,7 +58,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: Transactions/Create
         public ActionResult Create()
         {
-            ViewBag.NonAdminUserID = new SelectList(db.NonAdminUser, "ID", "name");
+            //ViewBag.NonAdminUserID = new SelectList(db.NonAdminUser, "ID", "name");
             return View();
         }
 
@@ -64,10 +67,11 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "date,description,NonAdminUserID")] Transaction transaction)
+        public ActionResult Create([Bind(Include = "date,description")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
+                transaction.NonAdminUserID = (int)Session["NonAdminUserID"];
                 db.Transaction.Add(transaction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
