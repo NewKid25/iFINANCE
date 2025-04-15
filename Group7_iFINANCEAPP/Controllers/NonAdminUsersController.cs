@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Group7_iFINANCEAPP.Models;
@@ -52,13 +54,41 @@ namespace Group7_iFINANCEAPP.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.NonAdminUser.Add(nonAdminUser);
+                NonAdminUser user = db.NonAdminUser.Add(nonAdminUser);
                 db.SaveChanges();
+
+                UserPassword pwd = new UserPassword();
+                pwd.userName = Request.Form["username"];
+                byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
+                byte[] hash = SHA256.Create().ComputeHash(pass);
+
+                pwd.encryptedPassword = GetHashString(hash);
+
+                pwd.NonAdminUserID = user.ID;
+
+                db.UserPassword.Add(pwd);
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
             ViewBag.AdministratorID = new SelectList(db.Administrator, "ID", "name", nonAdminUser.AdministratorID);
             return View(nonAdminUser);
+        }
+
+        public static string GetHashString(byte[] hash)
+        {
+            var sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sBuilder.Append(hash[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
         }
 
         // GET: NonAdminUsers/Edit/5
