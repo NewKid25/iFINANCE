@@ -142,6 +142,18 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 foreach (var line in transaction.TransactionLine.ToList())
                 {
+                    if (line.MasterAccount != null)
+                    {
+                        line.MasterAccount.closingAmount -= line.creditedAmount ?? 0;
+                        db.Entry(line.MasterAccount).State = EntityState.Modified;
+                    }
+
+                    if (line.MasterAccount1 != null)
+                    {
+                        line.MasterAccount1.closingAmount -= line.debitedAmount ?? 0;
+                        db.Entry(line.MasterAccount1).State = EntityState.Modified;
+                    }
+
                     db.TransactionLine.Remove(line);
                 }
 

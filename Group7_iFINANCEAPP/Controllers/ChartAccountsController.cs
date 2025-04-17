@@ -21,8 +21,8 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-
-            return View(db.MasterAccount.ToList());
+            int nonAdminUserID = (int)Session["NonAdminUserID"];
+            return View(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList());
         }
 
         // GET: ChartAccounts/Details/5
@@ -43,7 +43,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: ChartAccounts/Create
         public ActionResult Create()
         {
-            var groups = db.Group.ToList();
+            var groups = db.NonAdminUser.Find(Session["NonAdminUserID"]).Group.ToList();
             ViewBag.GroupID = new SelectList(groups, "ID", "name");
             return View();
         }
@@ -57,6 +57,7 @@ namespace Group7_iFINANCEAPP.Controllers
         {
             if (ModelState.IsValid)
             {
+                masterAccount.closingAmount = masterAccount.openingAmount;
                 db.MasterAccount.Add(masterAccount);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -77,7 +78,7 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 return HttpNotFound();
             }
-            var groups = db.Group.ToList();
+            var groups = db.NonAdminUser.Find(Session["NonAdminUserID"]).Group.ToList();
             ViewBag.GroupID = new SelectList(groups, "ID", "name", masterAccount.GroupID);
             return View(masterAccount);
         }

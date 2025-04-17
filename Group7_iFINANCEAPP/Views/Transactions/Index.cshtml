@@ -41,9 +41,9 @@
                     {
                         <tr>
                             <td>@line.creditedAmount</td>
-                            <td>@line.MasterAccount.name</td>
+                            <td>@((line.MasterAccount == null) ? "" : line.MasterAccount.name)</td>
                             <td>@line.debitedAmount</td>
-                            <td>@line.MasterAccount1.name</td>
+                            <td>@((line.MasterAccount1 == null) ? "" : line.MasterAccount1.name)</td>
                             <td>@line.comment</td>
                             <td>
                                 @Html.ActionLink("Edit", "Edit", "TransactionLines", new { id = line.ID}, null) |
