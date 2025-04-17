@@ -53,10 +53,13 @@ namespace Group7_iFINANCEAPP.Controllers
 
             int nonAdminUserID = (int)Session["NonAdminUserID"];
 
+            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
+            masterAccounts.Insert(0, null);
+
             // Credit
-            ViewBag.MasterAccountID = new SelectList(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).Where(a => a.Group.AccountCategory.type == "Credit"), "ID", "name");
+            ViewBag.MasterAccountID = new SelectList(masterAccounts, "ID", "name");
             // Debit
-            ViewBag.MasterAccountID2 = new SelectList(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).Where(a => a.Group.AccountCategory.type == "Debit"), "ID", "name");
+            ViewBag.MasterAccountID2 = new SelectList(masterAccounts, "ID", "name");
             ViewBag.TransactionID = new SelectList(db.Transaction.Where(t => t.NonAdminUserID == nonAdminUserID), "ID", "description");
             return View(line);
         }
@@ -68,33 +71,23 @@ namespace Group7_iFINANCEAPP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "creditedAmount,debitedAmount,comment,TransactionID,MasterAccountID,MasterAccountID2")] TransactionLine transactionLine)
         {
+            int nonAdminUserID = (int)Session["NonAdminUserID"];
             if (ModelState.IsValid)
             {
                 db.TransactionLine.Add(transactionLine);
 
-                if (transactionLine.MasterAccountID != null)
-                {
-                    var masterAccount = db.MasterAccount.Find(transactionLine.MasterAccountID);
-                    masterAccount.closingAmount += transactionLine.creditedAmount ?? 0; 
-                    db.Entry(masterAccount).State = EntityState.Modified;
-                }
-
-                if (transactionLine.MasterAccountID2 != null)
-                {
-                    var masterAccount = db.MasterAccount.Find(transactionLine.MasterAccountID);
-                    masterAccount.closingAmount += transactionLine.debitedAmount ?? 0;
-                    db.Entry(masterAccount.ID).State = EntityState.Modified;
-                }
+                ChartAccountsController.UpdateClosingBalance(nonAdminUserID, db);
 
                 db.SaveChanges();
                 return RedirectToAction("Index", "Transactions");
             }
 
-            int nonAdminUserID = (int)Session["NonAdminUserID"];
 
+            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
+            masterAccounts.Insert(0, null);
 
-            ViewBag.MasterAccountID = new SelectList(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).Where(a => a.Group.AccountCategory.type == "Credit"), "ID", "name", transactionLine.MasterAccountID);
-            ViewBag.MasterAccountID2 = new SelectList(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).Where(a => a.Group.AccountCategory.type == "Debit"), "ID", "name", transactionLine.MasterAccountID2);
+            ViewBag.MasterAccountID = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID);
+            ViewBag.MasterAccountID2 = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID2);
             ViewBag.TransactionID = new SelectList(db.Transaction, "ID", "description", transactionLine.TransactionID);
             return View(transactionLine);
         }
@@ -114,9 +107,11 @@ namespace Group7_iFINANCEAPP.Controllers
 
             int nonAdminUserID = (int)Session["NonAdminUserID"];
 
+            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
+            masterAccounts.Insert(0, null);
 
-            ViewBag.MasterAccountID = new SelectList(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).Where(a => a.Group.AccountCategory.type == "Credit"), "ID", "name", transactionLine.MasterAccountID);
-            ViewBag.MasterAccountID2 = new SelectList(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).Where(a => a.Group.AccountCategory.type == "Debit"), "ID", "name", transactionLine.MasterAccountID2);
+            ViewBag.MasterAccountID = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID);
+            ViewBag.MasterAccountID2 = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID2);
             ViewBag.TransactionID = new SelectList(db.Transaction, "ID", "description", transactionLine.TransactionID);
             return View(transactionLine);
         }
@@ -152,56 +147,17 @@ namespace Group7_iFINANCEAPP.Controllers
         {
             TransactionLine transactionLine = db.TransactionLine.Find(id);
 
+            int nonAdminUserID = (int)Session["NonAdminUserID"];
+
+
             if (TryUpdateModel(transactionLine, "",
                 new string[] { "creditedAmount", "debitedAmount", "comment", "MasterAccountID", "MasterAccountID2"}))
             {
                 try
                 {
-                    if (transactionLine.MasterAccount != null)
-                    {
-
-                        //transactionLine.MasterAccount.closingAmount = 0;
-
-                        double amt = 0;
-
-                        int mID = int.Parse(Request["MasterAccountID"]);
-
-                        foreach (var line in db.TransactionLine.Where(t => t.MasterAccountID == mID).ToList())
-                        {
-                            amt += line.creditedAmount ?? 0;
-                        }
-
-                        amt += transactionLine.MasterAccount.openingAmount;
-                        transactionLine.MasterAccount.closingAmount = amt;
-
-                        db.Entry(transactionLine.MasterAccount).State = EntityState.Modified;
-                        db.SaveChanges();
-
-                    }
-                    if (transactionLine.MasterAccount1 != null)
-                    {
-
-                        //transactionLine.MasterAccount.closingAmount = 0;
-
-                        double amt = 0;
-
-                        int mID = int.Parse(Request["MasterAccountID2"]);
-
-                        foreach (var line in db.TransactionLine.Where(t => t.MasterAccountID2 == mID).ToList())
-                        {
-                            amt += line.creditedAmount ?? 0;
-                        }
-
-                        amt += transactionLine.MasterAccount1.openingAmount;
-                        transactionLine.MasterAccount1.closingAmount = amt;
-
-                        db.Entry(transactionLine.MasterAccount1).State = EntityState.Modified;
-                        db.SaveChanges();
-
-                    }
-
-
                     db.SaveChanges();
+
+                    ChartAccountsController.UpdateClosingBalance(nonAdminUserID, db);
 
                     return RedirectToAction("Index", "Transactions");
                 }
@@ -212,12 +168,12 @@ namespace Group7_iFINANCEAPP.Controllers
                 }
             }
 
+            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
+            masterAccounts.Insert(0, null);
 
-            int nonAdminUserID = (int)Session["NonAdminUserID"];
 
-
-            ViewBag.MasterAccountID = new SelectList(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).Where(a => a.Group.AccountCategory.type == "Credit"), "ID", "name", transactionLine.MasterAccountID);
-            ViewBag.MasterAccountID2 = new SelectList(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).Where(a => a.Group.AccountCategory.type == "Debit"), "ID", "name", transactionLine.MasterAccountID2);
+            ViewBag.MasterAccountID = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID);
+            ViewBag.MasterAccountID2 = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID2);
             ViewBag.TransactionID = new SelectList(db.Transaction, "ID", "description", transactionLine.TransactionID);
             return View(transactionLine);
         }
@@ -246,20 +202,16 @@ namespace Group7_iFINANCEAPP.Controllers
 
             TransactionLine transactionLine = db.TransactionLine.Find(id);
 
-            if (transactionLine.MasterAccount != null)
-            {
-                transactionLine.MasterAccount.closingAmount -= transactionLine.creditedAmount ?? 0;
-                db.Entry(transactionLine.MasterAccount).State = EntityState.Modified;
-            }
-
-            if (transactionLine.MasterAccount1 != null)
-            {
-                transactionLine.MasterAccount1.closingAmount -= transactionLine.debitedAmount ?? 0;
-                db.Entry(transactionLine.MasterAccount1).State = EntityState.Modified;
-            }
-
             db.TransactionLine.Remove(transactionLine);
             db.SaveChanges();
+
+            int nonAdminUserID = (int)Session["NonAdminUserID"];
+
+            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
+            masterAccounts.Insert(0, null);
+
+            ChartAccountsController.UpdateClosingBalance(nonAdminUserID, db);
+
             return RedirectToAction("Index", "Transactions");
         }
 

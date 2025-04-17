@@ -22,7 +22,65 @@ namespace Group7_iFINANCEAPP.Controllers
                 return RedirectToAction("Index", "Login");
             }
             int nonAdminUserID = (int)Session["NonAdminUserID"];
-            return View(db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList());
+
+            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID)
+                .Include(a => a.TransactionLine)
+                .Include(a => a.TransactionLine1)
+                .Include(a => a.Group.AccountCategory)
+                .ToList();
+
+            UpdateClosingBalance(nonAdminUserID, db);
+
+            return View(masterAccounts);
+        }
+
+        public static void UpdateClosingBalance(int nonAdminUserID, Group7_iFINANCEDBEntities db)
+        {
+
+            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID)
+                .Include(a => a.TransactionLine)
+                .Include(a => a.TransactionLine1)
+                .Include(a => a.Group.AccountCategory)
+                .ToList();
+
+            foreach (var masterAccount in masterAccounts)
+            {
+                double amt = masterAccount.openingAmount;
+
+                foreach (var line in masterAccount.TransactionLine) // Credit entry
+                {
+                    if (masterAccount.Group.AccountCategory.type == "Credit")
+                    {
+                        amt += line.creditedAmount ?? 0;
+                    } else
+                    {
+                        amt -= line.creditedAmount ?? 0;
+                    }
+                }
+
+                foreach (var line in masterAccount.TransactionLine1)
+                {
+                    if (masterAccount.Group.AccountCategory.type == "Debit")
+                    {
+                        amt += line.debitedAmount ?? 0;
+                    } else
+                    {
+                        amt -= line.debitedAmount ?? 0;
+                    }
+                }
+
+                masterAccount.closingAmount = amt;
+                db.Entry(masterAccount).State = EntityState.Modified;
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            finally
+            {
+
+            }
         }
 
         // GET: ChartAccounts/Details/5

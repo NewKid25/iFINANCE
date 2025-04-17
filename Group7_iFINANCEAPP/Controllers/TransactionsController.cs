@@ -35,6 +35,7 @@ namespace Group7_iFINANCEAPP.Controllers
                                      Transaction = t,
                                      TransactionLines = t.TransactionLine.ToList()
                                  }).ToList();
+            
 
             return View(transactions);
         }
