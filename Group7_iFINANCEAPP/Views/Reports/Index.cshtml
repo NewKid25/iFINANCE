@@ -1,4 +1,4 @@
-﻿@model int[]
+﻿
 
 @{
     ViewBag.Title = "ReportsPage";
@@ -9,8 +9,8 @@
 
 <h5>Select what report you would like to generate.</h5>
 <div>
-    <p>@Html.ActionLink("Reports", "ProfitLossReport", "Reports", null, new { @class = "btn btn-outline-dark" })</p>
-    <p>@Html.ActionLink("Reports", "TrialBalance", "Reports", null, new { @class = "btn btn-outline-dark" })</p>
+    <p>@Html.ActionLink("Profit Loss", "ProfitLoss", "Reports", null, new { @class = "btn btn-outline-dark" })</p>
+    <p>@Html.ActionLink("Trial Balance", "TrialBalance", "Reports", null, new { @class = "btn btn-outline-dark" })</p>
 
 </div>
 
