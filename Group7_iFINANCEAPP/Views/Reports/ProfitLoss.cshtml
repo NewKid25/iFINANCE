@@ -1,0 +1,58 @@
+﻿@model Group7_iFINANCEAPP.Models.ViewModels.ProfitLossViewModel
+
+@{
+    ViewBag.Title = "ProfitLoss";
+}
+
+<h2>ProfitLossReport</h2>
+<table class="table-bordered w-100">
+    <tr>
+        <th colspan="2"><h3>Income</h3></th>
+    </tr>
+    @*<tr>
+            <th>Accont Name</th>
+        </tr>*@
+    @foreach (var account in Model.incomeAccounts)
+    {
+        <tr>
+            <td>@account.name</td>
+            <td>@account.closingAmount</td>
+        </tr>
+    }
+    <tr>
+        <td>Total Income</td>
+        <td>@Model.totalIncome</td>
+    </tr>
+
+
+    <tr>
+        <th colspan="2"><h3>Expenses</h3></th>
+    </tr>
+    @foreach (var account in Model.expenseAccounts)
+    {
+        <tr>
+            <td>@account.name</td>
+            <td>(@account.closingAmount)</td>
+        </tr>
+    }
+
+    <tr>
+        <td>Total Expenses</td>
+        <td>(@Model.totalExpense)</td>
+    </tr>
+
+    <tr>
+        <td>Profit / (Loss)</td>
+        @if(Model.totalExpense > Model.totalIncome)
+        {
+            <td>(@(Model.totalExpense-Model.totalIncome))</td>
+        }
+        else 
+        {
+            <td>@(Model.totalIncome- Model.totalExpense)</td>
+        }
+    </tr>
+</table>
+
+
+

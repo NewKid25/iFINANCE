@@ -29,7 +29,16 @@ namespace Group7_iFINANCEAPP.Controllers
 
         public ActionResult ProfitLoss()
         {
-            return View();
+            int nonAdminUserID = (int)Session["NonAdminUserID"];
+
+            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
+            var incomeAccounts = masterAccounts.Where(a => a.Group.AccountCategory.name == "Income").ToList();
+            var expenseAccounts = masterAccounts.Where(a => a.Group.AccountCategory.name == "Expenses").ToList();
+
+            var totalIncome = incomeAccounts.Sum(acct => acct.closingAmount);
+            var totalExpense = expenseAccounts.Sum(acct => acct.closingAmount);
+
+            return View(new ProfitLossViewModel(incomeAccounts,expenseAccounts,totalIncome, totalExpense));
         }
 
         public ActionResult TrialBalance()
