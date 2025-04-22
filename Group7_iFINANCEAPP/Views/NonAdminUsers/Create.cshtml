@@ -48,14 +48,6 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.AdministratorID, "AdministratorID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("AdministratorID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.AdministratorID, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
         <label for="username" class="control-label col-md-2">Username</label>
         <input id="username" class="form-control text-box single-line" name="username" type="text" value="" />
     </div>

@@ -46,7 +46,6 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: NonAdminUsers/Create
         public ActionResult Create()
         {
-            ViewBag.AdministratorID = new SelectList(db.Administrator, "ID", "name");
             return View();
         }
 
@@ -55,10 +54,13 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,address,email,AdministratorID")] NonAdminUser nonAdminUser)
+        public ActionResult Create([Bind(Include = "name,address,email")] NonAdminUser nonAdminUser)
         {
             if (ModelState.IsValid)
             {
+                nonAdminUser.AdministratorID = (int)Session["AdministratorID"];
+
+
                 NonAdminUser user = db.NonAdminUser.Add(nonAdminUser);
                 db.SaveChanges();
 
@@ -177,7 +179,7 @@ namespace Group7_iFINANCEAPP.Controllers
             }
 
             if (TryUpdateModel(nonAdminUser, "",
-                new string[] { "name", "address", "email", "AdministratorID" }))
+                new string[] { "name", "address", "email" }))
             {
                 try
                 {

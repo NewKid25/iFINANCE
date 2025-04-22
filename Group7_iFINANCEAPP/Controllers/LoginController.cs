@@ -34,7 +34,10 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 Session["NonAdminUserID"] = p.NonAdminUserID;
                 Session["AdministratorID"] = p.AdministratorID;
-                return RedirectToAction("Index", "Home");
+                if (p.NonAdminUserID != null)
+                    return RedirectToAction("Index", "Home");
+                else
+                    return RedirectToAction("Index", "NonAdminUsers");
             }
             else
             {
