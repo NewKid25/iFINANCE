@@ -1,100 +1,100 @@
 ﻿@model Group7_iFINANCEAPP.Models.ViewModels.ManageUsersViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage Users";
 }
 
-<h2>Manage Users</h2>
+<div class="container my-5">
+    <h2 class="text-center mb-4">Manage Users</h2>
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="nonadmin-tab" data-bs-toggle="tab" data-bs-target="#nonadmin" type="button" role="tab" aria-controls="home" aria-selected="true">NonAdmin Users</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin" type="button" role="tab" aria-controls="profile" aria-selected="false">Admin Users</button>
-    </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane show active" id="nonadmin" role="tabpanel" aria-labelledby="nonadmin-tab">
-        <p>
-            @Html.ActionLink("Add New User", "CreateNonAdmin")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Address
-                </th>
-                <th>
-                    Email
-                </th>
-                <th>
-                    Created By
-                </th>
-                <th></th>
-            </tr>
+    <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="nonadmin-tab" data-bs-toggle="tab" data-bs-target="#nonadmin" type="button" role="tab" aria-controls="nonadmin" aria-selected="true">Non-Admin Users</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin" type="button" role="tab" aria-controls="admin" aria-selected="false">Admin Users</button>
+        </li>
+    </ul>
 
-            @foreach (var item in Model.NonAdminUsers)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Administrator.name)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "EditNonAdmin", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "DetailsNonAdmin", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "DeleteNonAdmin", new { id = item.ID })
-                    </td>
-                </tr>
-            }
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="nonadmin" role="tabpanel" aria-labelledby="nonadmin-tab">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Non-Admin Users</h4>
+                @Html.ActionLink("Add New User", "CreateNonAdmin", null, new { @class = "btn btn-primary" })
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th>Created By</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.NonAdminUsers)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.name)</td>
+                                <td>@Html.DisplayFor(modelItem => item.address)</td>
+                                <td>@Html.DisplayFor(modelItem => item.email)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Administrator.name)</td>
+                                <td class="text-end">
+                                    @Html.ActionLink("Edit", "EditNonAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-primary me-1" })
+                                    @Html.ActionLink("Details", "DetailsNonAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-primary text-white me-1" })
+                                    @Html.ActionLink("Delete", "DeleteNonAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-        </table>
-
-    </div>
-    <div class="tab-pane" id="admin" role="tabpanel" aria-labelledby="admin-tab">
-
-        <p>
-            @Html.ActionLink("Add New User", "CreateAdmin")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model.Administrators)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "EditAdmin", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "DetailsAdmin", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "DeleteAdmin", new { id = item.ID })
-                    </td>
-                </tr>
-            }
-
-        </table>
-
+        <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Admin Users</h4>
+                @Html.ActionLink("Add New User", "CreateAdmin", null, new { @class = "btn btn-primary" })
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Administrators)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.name)</td>
+                                <td class="text-end">
+                                    @Html.ActionLink("Edit", "EditAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-primary me-1" })
+                                    @Html.ActionLink("Details", "DetailsAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-primary text-white me-1" })
+                                    @Html.ActionLink("Delete", "DeleteAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
 
-
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>

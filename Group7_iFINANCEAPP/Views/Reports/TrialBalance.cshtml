@@ -36,7 +36,19 @@
         </table>
 
         <div class="text-center mt-4">
-            @Html.ActionLink("Back to Reports", "Index", "Reports", null, new { @class = "btn btn-secondary" })
+            @Html.ActionLink("Back to Reports", "Index", "Reports", null, new { @class = "btn btn-primary" })
         </div>
     </div>
 </div>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>

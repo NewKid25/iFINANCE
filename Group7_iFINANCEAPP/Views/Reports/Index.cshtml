@@ -15,11 +15,23 @@
                     <h5 class="mb-4 text-center">Select a report to generate:</h5>
 
                     <div class="d-flex justify-content-center gap-3 flex-wrap">
-                        @Html.ActionLink("Profit & Loss", "ProfitLoss", "Reports", null, new { @class = "btn btn-dark px-4 py-2" })
-                        @Html.ActionLink("Trial Balance", "TrialBalance", "Reports", null, new { @class = "btn btn-dark px-4 py-2" })
+                        @Html.ActionLink("Profit & Loss", "ProfitLoss", "Reports", null, new { @class = "btn btn-primary px-4 py-2" })
+                        @Html.ActionLink("Trial Balance", "TrialBalance", "Reports", null, new { @class = "btn btn-primary px-4 py-2" })
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>

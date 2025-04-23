@@ -4,45 +4,44 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
+        <h2 class="text-center mb-4">Delete Transaction</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Transaction</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Date & Time
-        </dt>
+        <h4 class="text-danger text-center">Are you sure you want to delete this?</h4>
+        <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.date)
-        </dd>
+        <dl class="row">
+            <dt class="col-sm-3">Date & Time</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.date)</dd>
 
-        <dt>
-            Description
-        </dt>
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.description)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
+            <dt class="col-sm-3">User Name</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NonAdminUser.name)</dd>
+        </dl>
 
-        <dt>
-            User Name
-        </dt>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.NonAdminUser.name)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-primary" />
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
-        </div>
-    }
+            <div class="text-center mt-4">
+                <input type="submit" value="Delete" class="btn btn-danger btn-lg me-3" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary btn-lg" })
+            </div>
+        }
+    </div>
 </div>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>

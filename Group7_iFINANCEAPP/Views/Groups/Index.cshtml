@@ -4,48 +4,53 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
+        <h2>Index</h2>
 
-@helper RenderSubgroup(Group7_iFINANCEAPP.Models.Group group)
-{
-    <details>
-        <summary>
-            @group.name @Html.ActionLink("Edit", "Edit", new { id = group.ID }) |
-            @if (group.Groups.Count == 0)
-            {
-                @Html.ActionLink("Delete", "Delete", new { id = group.ID })
-            } else
-            {
-                <span class="disabled-link" title="Must delete all subgroups first">Delete</span>
-            }
-        </summary>
-        @foreach (var subgroup in group.Groups)
+        @helper RenderSubgroup(Group7_iFINANCEAPP.Models.Group group)
         {
-            @RenderSubgroup(subgroup)
-        }
-        @Html.ActionLink("Create New", "Create", new { accountCategoryId = group.AccountCategoryID, parentId = group.ID })
-    </details>
-}
-
-@foreach (Group7_iFINANCEAPP.Models.AccountCategory accountCategory in ViewBag.AccountCategories)
-            {
-                <details>
-                    <summary>
-                        @accountCategory.name
-                    </summary>
-                    
-                    @{ 
-                        int nonAdminUserID = (int)Session["NonAdminUserID"];
-                    }
-                    @foreach (var group in accountCategory.Group.Where(i => i.parentID == null && i.NonAdminUserID == nonAdminUserID))
+            <details>
+                <summary>
+                    @group.name @Html.ActionLink("Edit", "Edit", new { id = group.ID }) |
+                    @if (group.Groups.Count == 0)
                     {
-                        @RenderSubgroup(group)
+                        @Html.ActionLink("Delete", "Delete", new { id = group.ID })
                     }
+                    else
+                    {
+                        <span class="disabled-link" title="Must delete all subgroups first">Delete</span>
+                    }
+                </summary>
+                @foreach (var subgroup in group.Groups)
+                {
+                    @RenderSubgroup(subgroup)
+                }
+                @Html.ActionLink("Create New", "Create", new { accountCategoryId = group.AccountCategoryID, parentId = group.ID })
+            </details>
+        }
 
-                    @Html.ActionLink("Create New", "Create", new { accountCategoryId = accountCategory.ID })
+        @foreach (Group7_iFINANCEAPP.Models.AccountCategory accountCategory in ViewBag.AccountCategories)
+        {
+            <details>
+                <summary>
+                    @accountCategory.name
+                </summary>
 
-                </details>
-            }
+                @{
+                    int nonAdminUserID = (int)Session["NonAdminUserID"];
+                }
+                @foreach (var group in accountCategory.Group.Where(i => i.parentID == null && i.NonAdminUserID == nonAdminUserID))
+                {
+                    @RenderSubgroup(group)
+                }
+
+                @Html.ActionLink("Create New", "Create", new { accountCategoryId = accountCategory.ID })
+
+            </details>
+        }
+    </div>
+</div>
 
 
 
@@ -57,5 +62,15 @@
     .disabled-link {
         color: cadetblue;
         text-decoration: underline dotted;
+    }
+
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
     }
 </style>
