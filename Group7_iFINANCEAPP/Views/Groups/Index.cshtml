@@ -12,16 +12,16 @@
         {
             <details>
                 <summary>
-                    @group.name @Html.ActionLink("Edit", "Edit", new { id = group.ID }) |
+                    @group.name @Html.ActionLink("Edit", "Edit", new { id = group.ID }, new { @class = "btn btn-primary btn-sm"}) |
 
-                    @Html.ActionLink("Delete", "Delete", new { id = group.ID })
+                    @Html.ActionLink("Delete", "Delete", new { id = group.ID }, new { @class = "btn btn-danger btn-sm" })
 
                 </summary>
                 @foreach (var subgroup in group.Groups)
                 {
                     @RenderSubgroup(subgroup)
                 }
-                @Html.ActionLink("Create New", "Create", new { accountCategoryId = group.AccountCategoryID, parentId = group.ID })
+                @Html.ActionLink("Create New", "Create", new { accountCategoryId = group.AccountCategoryID, parentId = group.ID }, new {@class = "btn btn-purple btn-sm mt-2"})
             </details>
         }
 
@@ -40,7 +40,7 @@
                     @RenderSubgroup(group)
                 }
 
-                @Html.ActionLink("Create New", "Create", new { accountCategoryId = accountCategory.ID })
+                @Html.ActionLink("Create New", "Create", new { accountCategoryId = accountCategory.ID }, new { @class = "btn btn-purple btn-sm mt-2" })
 
             </details>
         }
@@ -52,7 +52,7 @@
 <style>
 
     summary {
-        font-size: 1.5em;
+        font-size: 1.25em;
     }
 
     details details, details > a {
@@ -77,4 +77,21 @@
     .btn-primary:active {
         background-color: #7048a0;
     }
+
+    .btn-purple {
+        background-color: #8058ac;
+        border-color: #8058ac;
+        color: white;
+        width: 300px;
+    }
+
+        .btn-purple:hover {
+            background-color: #7048a0;
+            border-color: #7048a0;
+            color: white;
+        }
+
+        .btn-purple:active {
+            background-color: #7048a0;
+        }
 </style>
