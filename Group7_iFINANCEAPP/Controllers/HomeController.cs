@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Group7_iFINANCEAPP.Models;
+using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,7 @@ namespace Group7_iFINANCEAPP.Controllers
 {
     public class HomeController : Controller
     {
+        private Group7_iFINANCEDBEntities db = new Group7_iFINANCEDBEntities();
         public ActionResult Index()
         {
             if (Session["NonAdminUserID"] == null && Session["AdministratorID"] == null)
@@ -15,21 +18,24 @@ namespace Group7_iFINANCEAPP.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            return View();
-        }
+            
+                int id = (int)Session["NonAdminUserID"];
+                var user = db.NonAdminUser.Find(id);
+                ViewBag.UserName = user.name;
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+                //ViewBag.TransactionCount = db.Transaction.Count(t => t.NonAdminUserID == id);  // update field if needed
+                //ViewBag.TotalAssets = db.MasterAccount
+                //                        .Where(a => a.Group.NonAdminUserID == id)
+                //                        .Select(a => a.closingAmount)
+                //                        .DefaultIfEmpty(0)
+                //                        .Sum();
 
-            return View();
-        }
+                //ViewBag.Liabilities = db.MasterAccount.Where(a => a.Group);     // placeholder
+                //ViewBag.Income = ;     // placeholder
+                //ViewBag.Expenses = ;  // placeholder
+            
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(user);
         }
     }
 }

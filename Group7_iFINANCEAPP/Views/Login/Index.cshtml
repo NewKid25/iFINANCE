@@ -48,16 +48,12 @@
             align-self: flex-start;
             gap: 10px;
             margin-bottom: 30px;
-/*            border:dashed;
-            border-color: black;*/
         }
 
         .form-content {
             padding: 80px 10px;
             text-align: left;
             width: 300px;
-/*            border: dashed;
-            border-color: black;*/
         }
 
         .illustration-section {
@@ -81,10 +77,15 @@
         }
 
         .btn-purple:hover {
-            background-color: #592986;
-            border-color: #592986;
+            background-color: #7048a0;
+            border-color: #7048a0;
             color: white;
         }
+
+        .btn-purple:active {
+            background-color: #7048a0;
+        }
+
     </style>
 
     <div class="login-wrapper">
@@ -99,8 +100,6 @@
                     <div class="form-content">
                         <h2 class="mb-2">Login</h2>
                         <p class="text-muted mb-4">Please enter your details</p>
-
-                        <p class="text-danger">@ViewBag.ValidationError</p>
 
                         <div class="form-group">
                             <label for="username" class="control-label col-md-2">Username</label>
@@ -118,6 +117,8 @@
                                 <input type="submit" value="Login" class="btn btn-purple" />
                             </div>
                         </div>
+
+                        <p class="text-danger">@ViewBag.ValidationError</p>
 
                     </div>
                 </div>
