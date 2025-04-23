@@ -287,6 +287,7 @@
     <Content Include="Views\NonAdminUsers\DeleteAdmin.cshtml" />
     <Content Include="Views\NonAdminUsers\DetailsAdmin.cshtml" />
     <Content Include="Views\NonAdminUsers\EditAdmin.cshtml" />
+    <Content Include="Views\Login\Reset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

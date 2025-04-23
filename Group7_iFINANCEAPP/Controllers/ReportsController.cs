@@ -51,7 +51,7 @@ namespace Group7_iFINANCEAPP.Controllers
             foreach(var account in masterAccounts)
             {
                 var lineItem = new TrailBalanceLineItem(account.name);
-                if(account.Group.AccountCategory.type == "debit")
+                if(account.Group.AccountCategory.type == "Debit")
                 {
                     lineItem.debit = account.closingAmount;
                 }
@@ -62,17 +62,8 @@ namespace Group7_iFINANCEAPP.Controllers
                 trialBalanceLineItems.Add(lineItem);
                 
             }
-
-            //ViewBag.trialBalanceLineItems = trialBalanceLineItems;
             var totalDebit = trialBalanceLineItems.Sum(item => item.debit);
             var totalCredit = trialBalanceLineItems.Sum(item => item.credit);
-
-            //masterAccounts[0].Group.AccountCategory.type
-
-            //    if(Type == debit)
-            //    debit = totalClosingAmount
-            //    else
-            //    credit = totalClosingAmount
 
             return View(new TrialBalanceViewModel(trialBalanceLineItems,totalDebit,totalCredit));
         }
