@@ -17,8 +17,8 @@ namespace Group7_iFINANCEAPP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Administrator()
         {
-            this.NonAdminUser = new HashSet<NonAdminUser>();
             this.UserPassword = new HashSet<UserPassword>();
+            this.NonAdminUser = new HashSet<NonAdminUser>();
         }
     
         public int ID { get; set; }
@@ -27,8 +27,8 @@ namespace Group7_iFINANCEAPP.Models
         public Nullable<System.DateTime> dateFinished { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NonAdminUser> NonAdminUser { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPassword> UserPassword { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NonAdminUser> NonAdminUser { get; set; }
     }
 }

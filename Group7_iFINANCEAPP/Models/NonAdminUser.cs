@@ -26,14 +26,14 @@ namespace Group7_iFINANCEAPP.Models
         public string name { get; set; }
         public string address { get; set; }
         public string email { get; set; }
-        public int AdministratorID { get; set; }
+        public Nullable<int> AdministratorID { get; set; }
     
-        public virtual Administrator Administrator { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transaction { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserPassword> UserPassword { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Group { get; set; }
+        public virtual Administrator Administrator { get; set; }
     }
 }

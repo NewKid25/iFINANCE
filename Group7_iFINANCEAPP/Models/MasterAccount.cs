@@ -17,8 +17,8 @@ namespace Group7_iFINANCEAPP.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MasterAccount()
         {
-            this.TransactionLine = new HashSet<TransactionLine>();
             this.TransactionLine1 = new HashSet<TransactionLine>();
+            this.TransactionLine = new HashSet<TransactionLine>();
         }
     
         public int ID { get; set; }
@@ -28,9 +28,9 @@ namespace Group7_iFINANCEAPP.Models
         public int GroupID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionLine> TransactionLine { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionLine> TransactionLine1 { get; set; }
         public virtual Group Group { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionLine> TransactionLine { get; set; }
     }
 }

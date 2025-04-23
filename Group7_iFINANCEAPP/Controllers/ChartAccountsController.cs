@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Group7_iFINANCEAPP.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace Group7_iFINANCEAPP.Controllers
 {
@@ -178,6 +179,10 @@ namespace Group7_iFINANCEAPP.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             MasterAccount masterAccount = db.MasterAccount.Find(id);
+
+            masterAccount.TransactionLine.ToList().ForEach(t => { db.TransactionLine.Remove(t); });
+            masterAccount.TransactionLine1.ToList().ForEach(t => { db.TransactionLine.Remove(t); });
+
             db.MasterAccount.Remove(masterAccount);
             db.SaveChanges();
             return RedirectToAction("Index");

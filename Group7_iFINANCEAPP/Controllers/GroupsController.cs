@@ -204,9 +204,22 @@ namespace Group7_iFINANCEAPP.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Group group = db.Group.Find(id);
-            db.Group.Remove(group);
+
+            RemoveGroup(group, db);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public static void RemoveGroup(Group group, Group7_iFINANCEDBEntities db)
+        {
+            group.Groups.ToList().ForEach(g => { RemoveGroup(g, db); });
+            group.MasterAccount.ToList().ForEach(a =>
+            {
+                a.TransactionLine.ToList().ForEach(b => { db.TransactionLine.Remove(b); });
+                a.TransactionLine1.ToList().ForEach(b => { db.TransactionLine.Remove(b); });
+                db.MasterAccount.Remove(a);
+            });
+            db.Group.Remove(group);   
         }
 
         protected override void Dispose(bool disposing)

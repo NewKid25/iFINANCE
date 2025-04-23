@@ -28,11 +28,11 @@ namespace Group7_iFINANCEAPP.Models
         public Nullable<int> parentID { get; set; }
     
         public virtual AccountCategory AccountCategory { get; set; }
-        public virtual NonAdminUser NonAdminUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MasterAccount> MasterAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Groups { get; set; }
         public virtual Group Parent { get; set; }
+        public virtual NonAdminUser NonAdminUser { get; set; }
     }
 }

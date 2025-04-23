@@ -13,14 +13,9 @@
             <details>
                 <summary>
                     @group.name @Html.ActionLink("Edit", "Edit", new { id = group.ID }) |
-                    @if (group.Groups.Count == 0)
-                    {
-                        @Html.ActionLink("Delete", "Delete", new { id = group.ID })
-                    }
-                    else
-                    {
-                        <span class="disabled-link" title="Must delete all subgroups first">Delete</span>
-                    }
+
+                    @Html.ActionLink("Delete", "Delete", new { id = group.ID })
+
                 </summary>
                 @foreach (var subgroup in group.Groups)
                 {

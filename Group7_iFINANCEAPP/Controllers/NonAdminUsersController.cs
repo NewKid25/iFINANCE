@@ -311,6 +311,11 @@ namespace Group7_iFINANCEAPP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteAdminConfirmed(int id)
         {
+            if ((int)Session["AdministratorID"] == id)
+            {
+                return RedirectToAction("Index");
+
+            }
             Administrator admin = db.Administrator.Find(id);
             db.Administrator.Remove(admin);
             db.SaveChanges();
