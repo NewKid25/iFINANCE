@@ -8,51 +8,51 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
-                <img src="~/Content/images/logo.png" alt="Logo" style="height: 30px; margin-right: 10px;" />
-                <span>iFINANCE</span>
-            </a>
-            @*@Html.ActionLink("iFINANCE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    @if (Session["AdministratorID"] != null)
-                    {
-                    <li>@Html.ActionLink("Accounts", "Index", "NonAdminUsers", new { area = "" }, new { @class = "nav-link" })</li>
-                    }
-                    @if (Session["NonAdminUserID"] != null)
-                    {
-                    <li>@Html.ActionLink("Groups", "Index", "Groups", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Chart of Accounts", "Index", "ChartAccounts", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Transactions", "Index", "Transactions", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Reports", "Index", "Reports", new { area = "" }, new { @class = "nav-link" })</li>
-                    }
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    @if (Session["AdministratorID"] != null || Session["NonAdminUserID"] != null)
-                    {
-                    <li>@Html.ActionLink("Logout", "Index", "Login", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Reset Password", "Reset", "Login", new { area = "" }, new { @class = "nav-link" })</li>
-                    }
-                </ul>
+    @if (Session["AdministratorID"] != null || Session["NonAdminUserID"] != null)
+    {
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
+                    <img src="~/Content/images/logo.png" alt="Logo" style="height: 30px; margin-right: 10px;" />
+                    <span>iFINANCE</span>
+                </a>
+                @*@Html.ActionLink("iFINANCE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (Session["AdministratorID"] != null)
+                        {
+                            <li>@Html.ActionLink("Accounts", "Index", "NonAdminUsers", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        @if (Session["NonAdminUserID"] != null)
+                        {
+                            <li>@Html.ActionLink("Groups", "Index", "Groups", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Chart of Accounts", "Index", "ChartAccounts", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Transactions", "Index", "Transactions", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Reports", "Index", "Reports", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li>@Html.ActionLink("Logout", "Index", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Reset Password", "Reset", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                </div>
             </div>
+        </nav>
+    }
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year -iFINANCE</p>
+            </footer>
         </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year -iFINANCE</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>
