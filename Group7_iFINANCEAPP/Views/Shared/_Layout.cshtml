@@ -17,14 +17,24 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
+                    @if (Session["AdministratorID"] != null)
+                    {
                     <li>@Html.ActionLink("Accounts", "Index", "NonAdminUsers", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    @if (Session["NonAdminUserID"] != null)
+                    {
                     <li>@Html.ActionLink("Groups", "Index", "Groups", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Chart of Accounts", "Index", "ChartAccounts", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Transactions", "Index", "Transactions", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Reports", "Index", "Reports", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    <li>@Html.ActionLink("Login", "LoginPage", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (Session["AdministratorID"] != null || Session["NonAdminUserID"] != null)
+                    {
+                    <li>@Html.ActionLink("Logout", "Index", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Reset Password", "Reset", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                 </ul>
             </div>
         </div>

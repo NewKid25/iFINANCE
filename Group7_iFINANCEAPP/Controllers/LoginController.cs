@@ -16,6 +16,8 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            Session["AdministratorID"] = null;
+            Session["NonAdminUserID"] = null;
             return View();
         }
 
@@ -45,6 +47,42 @@ namespace Group7_iFINANCEAPP.Controllers
                 return View();
             }
 
+        }
+
+        public ActionResult Reset()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reset(string password)
+        {
+            byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
+            byte[] hash = SHA256.Create().ComputeHash(pass);
+
+            string encryptedPassword = NonAdminUsersController.GetHashString(hash);
+
+            UserPassword p;
+
+            int id;
+
+            if (Session["NonAdminUserID"] != null)
+            {
+                id = (int)Session["NonAdminUserID"];
+                p = db.UserPassword.Where(a => a.NonAdminUserID == id).FirstOrDefault();
+            }
+            else
+            {
+                id = (int)Session["AdministratorID"];
+                p = db.UserPassword.Where(a => a.AdministratorID == id).FirstOrDefault();
+            }
+
+            p.encryptedPassword = encryptedPassword;
+            db.Entry(p).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
  
     }
