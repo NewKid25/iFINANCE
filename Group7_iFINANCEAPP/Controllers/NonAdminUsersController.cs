@@ -311,7 +311,17 @@ namespace Group7_iFINANCEAPP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteAdminConfirmed(int id)
         {
+            if ((int)Session["AdministratorID"] == id)
+            {
+                return RedirectToAction("Index");
+
+            }
             Administrator admin = db.Administrator.Find(id);
+
+            UserPassword p = db.UserPassword.Where(a => a.AdministratorID == id).First();
+
+            db.UserPassword.Remove(p);
+
             db.Administrator.Remove(admin);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -338,6 +348,11 @@ namespace Group7_iFINANCEAPP.Controllers
         public ActionResult DeleteNonAdminConfirmed(int id)
         {
             NonAdminUser nonAdminUser = db.NonAdminUser.Find(id);
+
+            UserPassword p = db.UserPassword.Where(a => a.NonAdminUserID == id).First();
+
+            db.UserPassword.Remove(p);
+
             db.NonAdminUser.Remove(nonAdminUser);
             db.SaveChanges();
             return RedirectToAction("Index");

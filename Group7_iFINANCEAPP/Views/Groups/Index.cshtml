@@ -6,21 +6,16 @@
 
 <div class="container my-5">
     <div class="card shadow-sm rounded-4 p-5">
-        <h2>Index</h2>
+        <h2>Manage Groups</h2>
 
         @helper RenderSubgroup(Group7_iFINANCEAPP.Models.Group group)
         {
             <details>
                 <summary>
                     @group.name @Html.ActionLink("Edit", "Edit", new { id = group.ID }) |
-                    @if (group.Groups.Count == 0)
-                    {
-                        @Html.ActionLink("Delete", "Delete", new { id = group.ID })
-                    }
-                    else
-                    {
-                        <span class="disabled-link" title="Must delete all subgroups first">Delete</span>
-                    }
+
+                    @Html.ActionLink("Delete", "Delete", new { id = group.ID })
+
                 </summary>
                 @foreach (var subgroup in group.Groups)
                 {
@@ -55,8 +50,13 @@
 
 
 <style>
+
+    summary {
+        font-size: 1.5em;
+    }
+
     details details, details > a {
-        margin-left: 20px;
+        margin-left: 35px;
     }
 
     .disabled-link {

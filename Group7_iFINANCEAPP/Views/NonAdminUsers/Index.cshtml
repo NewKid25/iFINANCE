@@ -74,7 +74,14 @@
                                 <td class="text-end">
                                     @Html.ActionLink("Edit", "EditAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-primary me-1" })
                                     @Html.ActionLink("Details", "DetailsAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-primary text-white me-1" })
-                                    @Html.ActionLink("Delete", "DeleteAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
+                                    @if (item.ID != (int)Session["AdministratorID"])
+                                    {
+                                        @Html.ActionLink("Delete", "DeleteAdmin", new { id = item.ID }, new {@class = "btn btn-sm btn-primary me-1"})
+                                    }
+                                    else
+                                    {
+                                        <span class="btn btn-sm btn-secondary me-1" title="Cannot delete your own user">Delete</span>
+                                    }
                                 </td>
                             </tr>
                         }
