@@ -4,51 +4,56 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
 
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
+        <h2 class="text-center mb-4">Create Transaction</h2>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
+        @using (Html.BeginForm()) 
+        {
+            @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Transaction</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.date, "Date", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="form-horizontal">
+                <h4>Transaction</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.description, "Description", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.date, "Date", htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.date, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        @*
-        <div class="form-group">
-            @Html.LabelFor(model => model.NonAdminUserID, "User ID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("NonAdminUserID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.NonAdminUserID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-            *@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.description, "Description", htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+                <div class="form-group text-center">
+                    <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary btn-lg ms-3" })
+                </div>
             </div>
-               </div>
+        }
     </div>
-}
+</div>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -4,35 +4,40 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
+        <h2 class="text-center mb-4">Edit Group</h2>
 
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger text-center mb-3" })
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Group</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.name, "Name", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="mb-3">
+                @Html.LabelFor(model => model.name, "Group Name", htmlAttributes: new { @class = "form-label" })
                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                @Html.ActionLink("Back to List", "Index", null, new {@class = "btn btn-secondary"})
+            <div class="text-center">
+                <input type="submit" value="Save" class="btn btn-primary btn-lg me-3" />
+                @Html.ActionLink("Back to List", "Index", "Groups", null, new { @class = "btn btn-secondary btn-lg" })
             </div>
-        </div>
+        }
     </div>
-}
+</div>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

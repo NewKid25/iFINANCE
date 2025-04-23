@@ -4,39 +4,40 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
+        <h2 class="text-center mb-4">Transaction Details</h2>
 
-<div>
-    <h4>Transaction</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Date & Time
-        </dt>
+        <h4>Transaction Information</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Date & Time</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.date)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.date)
-        </dd>
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.description)</dd>
 
-        <dt>
-            Description
-        </dt>
+            <dt class="col-sm-3">User ID</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NonAdminUser.name)</dd>
+        </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
-
-        <dt>
-            User ID
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NonAdminUser.name)
-        </dd>
-
-    </dl>
+        <div class="text-center">
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary btn-lg me-3" })
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary btn-lg" })
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary"})
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
-</p>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>
