@@ -1,40 +1,42 @@
 ﻿@model Group7_iFINANCEAPP.Models.ViewModels.TrialBalanceViewModel
 
 @{
-    ViewBag.Title = "TrialBalance";
+    ViewBag.Title = "Trial Balance";
 }
 
-<h2>TrialBalance</h2>
-<table class="table-bordered w-100">
-    <tr>
-        <th>Account Name</th>
-        <th>Debit Amount</th>
-        <th>Credit Amount</th>
-    </tr>
-    @foreach (var lineItem in Model.lineItems)
-    {
-        <tr>
-            <td>@lineItem.accountName</td>
-            <td>@lineItem.debit</td>
-            <td>@lineItem.credit</td>
-        </tr>
 
-    }
-    <tr>
-        <td>Total</td>
-        <td>@Model.totalDebit</td>
-        <td>@Model.totalCredit</td>
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
+        <h2 class="text-center mb-4">Trial Balance</h2>
 
-    </tr>
-</table>
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Account Name</th>
+                    <th class="text-end">Debit Amount</th>
+                    <th class="text-end">Credit Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var lineItem in Model.lineItems)
+                {
+                    <tr>
+                        <td>@lineItem.accountName</td>
+                        <td class="text-end">@($"${Math.Round(lineItem.debit ?? 0.0, 2):0.00}")</td>
+                        <td class="text-end">@($"${Math.Round(lineItem.credit ?? 0.0, 2):0.00}")</td>
+                    </tr>
 
+                }
+                <tr class="fw-bold table-light">
+                    <td>Total</td>
+                    <td class="text-end">@Model.totalDebit.ToString("C")</td>
+                    <td class="text-end">@Model.totalCredit.ToString("C")</td>
+                </tr>
+            </tbody>
+        </table>
 
-<style>
-    th,td{
-        padding : 0 1%;
-    }
-    tr:nth-child(even) {
-        background-color: #e9e9e9;
-    }
-</style>
-
+        <div class="text-center mt-4">
+            @Html.ActionLink("Back to Reports", "Index", "Reports", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</div>
