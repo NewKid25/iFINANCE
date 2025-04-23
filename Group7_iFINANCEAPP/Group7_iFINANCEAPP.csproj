@@ -252,10 +252,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\NonAdminUsers\Create.cshtml" />
-    <Content Include="Views\NonAdminUsers\Delete.cshtml" />
-    <Content Include="Views\NonAdminUsers\Details.cshtml" />
-    <Content Include="Views\NonAdminUsers\Edit.cshtml" />
+    <Content Include="Views\NonAdminUsers\CreateNonAdmin.cshtml" />
+    <Content Include="Views\NonAdminUsers\DeleteNonAdmin.cshtml" />
+    <Content Include="Views\NonAdminUsers\DetailsNonAdmin.cshtml" />
+    <Content Include="Views\NonAdminUsers\EditNonAdmin.cshtml" />
     <Content Include="Views\NonAdminUsers\Index.cshtml" />
     <Content Include="Views\Groups\Create.cshtml" />
     <Content Include="Views\Groups\Delete.cshtml" />
@@ -280,6 +280,10 @@
     <Content Include="Views\TransactionLines\Edit.cshtml" />
     <Content Include="Views\Reports\ProfitLoss.cshtml" />
     <Content Include="Views\Reports\TrialBalance.cshtml" />
+    <Content Include="Views\NonAdminUsers\CreateAdmin.cshtml" />
+    <Content Include="Views\NonAdminUsers\DeleteAdmin.cshtml" />
+    <Content Include="Views\NonAdminUsers\DetailsAdmin.cshtml" />
+    <Content Include="Views\NonAdminUsers\EditAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,4 @@
-﻿@model Group7_iFINANCEAPP.Models.NonAdminUser
+﻿@model Group7_iFINANCEAPP.Models.Administrator
 
 @{
     ViewBag.Title = "Details";
@@ -19,32 +19,24 @@
         </dd>
 
         <dt>
-            Address
+            Date Hired
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.address)
+            @Html.DisplayFor(model => model.dateHired)
         </dd>
 
         <dt>
-            Email
+            Date Finished
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-        <dt>
-            Admin Name
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Administrator.name)
+            @Html.DisplayFor(model => model.dateFinished)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Edit", "EditAdmin", new { id = Model.ID }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
 </p>
