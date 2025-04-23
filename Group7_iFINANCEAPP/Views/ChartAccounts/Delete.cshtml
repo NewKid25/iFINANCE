@@ -20,16 +20,16 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-
+        }
     </dl>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-primary" />
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+        <div class="text-center mt-4">
+            <input type="submit" value="Delete" class="btn btn-danger btn-lg me-3" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary btn-lg" })
         </div>
     }
 </div>
@@ -43,5 +43,9 @@
     .btn-primary:hover {
         background-color: #7048a0;
         border-color: #7048a0;
+    }
+
+    .btn-primary:active {
+         background-color: #7048a0;
     }
 </style>

@@ -7,6 +7,23 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    <style>
+        .btn-purple {
+            background-color: #8058ac;
+            border-color: #8058ac;
+            color: white;
+        }
+
+        .btn-purple:hover {
+            background-color: #7048a0;
+            border-color: #7048a0;
+            color: white;
+        }
+
+        .btn-purple:active {
+            background-color: #7048a0;
+        }
+    </style>
     <div class="form-horizontal">
 
         <h4>Reset Password</h4>
@@ -15,14 +32,14 @@
         <p class="text-danger">@ViewBag.ValidationError</p>
 
         <div class="form-group">
-            <label for="password" class="control-label col-md-2">Password</label>
+            <label for="password" class="control-label col-md-2">New Password</label>
             <input id="password" class="form-control text-box single-line" name="password" type="text" value="" />
         </div>
 
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">
-                <input type="submit" value="Reset" class="btn btn-primary" />
+                <input type="submit" value="Reset" class="btn btn-purple" />
             </div>
         </div>
 

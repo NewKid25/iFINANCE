@@ -2,51 +2,90 @@
     ViewBag.Title = "Home Page";
 }
 
+<style>
+    body {
+        background-color: #f9f9f9;
+    }
+
+    .homepage-container {
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+
+    .homepage-container h1 {
+        font-size: 2.5rem;
+        color: #592986;
+    }
+
+    .homepage-container p {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 2.75rem;
+    }
+
+    .card-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .card {
+        background-color: #fff;
+        padding: 1rem;
+        border-radius: 12px;
+        width: 250px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        text-decoration: none;
+        transition: transform 0.2s ease;
+        align-items: center;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        cursor: pointer;
+    }
+
+    .card img {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+    }
+</style>
+
 <main>
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="accounts">Accounts</h2>
-            <p>
-                When logged in as an administrator, manage user accounts.
-            </p>
-            <p>@Html.ActionLink("Accounts", "Index", "NonAdminUsers", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="login">Login</h2>
-            <p>
-                Use to log into accounts.
-            </p>
-            <p>@Html.ActionLink("Login", "Index", "Login", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="groups">Groups</h2>
-            <p>
-                Manage account groups here.
-            </p>
-            <p>@Html.ActionLink("Groups", "Index", "Groups", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
-    </div>
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="chartAccounts">Chart of Accounts</h2>
-            <p>
-                Manage accounts in the Chart of Accounts.
-            </p>
-            <p>@Html.ActionLink("Chart of Accounts", "Index", "ChartAccounts", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="transactions">Transactions</h2>
-            <p>
-                Use to log double-entry transactions, line-by-line.
-            </p>
-            <p>@Html.ActionLink("Transactions", "Index", "Transactions", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="reports">Reports</h2>
-            <p>
-                Generate financial reports with iFINANCE data here.
-            </p>
-            <p>@Html.ActionLink("Reports", "Index", "Reports", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
+    <div class="homepage-container">
+        <h1>Welcome, @ViewBag.UserName!</h1>
+        <p>Here's a summary of the financial features and tools you can use.</p>
+
+        <div class="card-grid">
+            <div class="card" onclick="location.href='@Url.Action("Index", "Groups")'">
+                <img src="~/Content/images/groups.png" alt="Groups picture" />
+                <div class="card-title">Groups</div>
+                <p>Manage your custom financial groups.</p>
+            </div>
+            <div class="card" onclick="location.href='@Url.Action("Index", "ChartAccounts")'">
+                <img src="~/Content/images/chart of accounts.png" alt="Chart of Accounts picture" />
+                <div class="card-title">Chart of Accounts</div>
+                <p>Organize your accounts by category and type.</p>
+            </div>
+            <div class="card" onclick="location.href='@Url.Action("Index", "Transactions")'">
+                <img src="~/Content/images/transactions.png" alt="Transactions picture" />
+                <div class="card-title">Transactions</div>
+                <p>View and manage all financial transactions.</p>
+            </div>
+            <div class="card" onclick="location.href='@Url.Action("Index", "Reports")'">
+                <img src="~/Content/images/reports.png" alt="Reports picture" />
+                <div class="card-title">Reports</div>
+                <p>Generate financial reports and statements.</p>
+            </div>
+        </div>
     </div>
 </main>
