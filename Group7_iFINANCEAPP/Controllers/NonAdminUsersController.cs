@@ -9,6 +9,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Group7_iFINANCEAPP.Models;
+using Group7_iFINANCEAPP.Models.ViewModels;
 
 namespace Group7_iFINANCEAPP.Controllers
 {
@@ -25,11 +26,34 @@ namespace Group7_iFINANCEAPP.Controllers
             }
 
             var nonAdminUser = db.NonAdminUser.Include(n => n.Administrator);
-            return View(nonAdminUser.ToList());
+
+            var admin = db.Administrator;
+
+            var viewModel = new ManageUsersViewModel();
+            
+            viewModel.Administrators = admin.ToList();
+            viewModel.NonAdminUsers = nonAdminUser.ToList();
+
+            return View(viewModel);
         }
 
         // GET: NonAdminUsers/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult DetailsAdmin(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Administrator admin = db.Administrator.Find(id);
+            if (admin == null)
+            {
+                return HttpNotFound();
+            }
+            return View(admin);
+        }
+
+        // GET: NonAdminUsers/Details/5
+        public ActionResult DetailsNonAdmin(int? id)
         {
             if (id == null)
             {
@@ -44,7 +68,7 @@ namespace Group7_iFINANCEAPP.Controllers
         }
 
         // GET: NonAdminUsers/Create
-        public ActionResult Create()
+        public ActionResult CreateAdmin()
         {
             return View();
         }
@@ -54,7 +78,43 @@ namespace Group7_iFINANCEAPP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,address,email")] NonAdminUser nonAdminUser)
+        public ActionResult CreateAdmin([Bind(Include = "name,dateHired,dateFinished")] Administrator admin)
+        {
+            if (ModelState.IsValid)
+            {
+                Administrator user = db.Administrator.Add(admin);
+                db.SaveChanges();
+
+                UserPassword pwd = new UserPassword();
+                pwd.userName = Request.Form["username"];
+                byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
+                byte[] hash = SHA256.Create().ComputeHash(pass);
+
+                pwd.encryptedPassword = GetHashString(hash);
+
+                pwd.AdministratorID = user.ID;
+
+                db.UserPassword.Add(pwd);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(admin);
+        }
+
+        // GET: NonAdminUsers/Create
+        public ActionResult CreateNonAdmin()
+        {
+            return View();
+        }
+
+        // POST: NonAdminUsers/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateNonAdmin([Bind(Include = "name,address,email")] NonAdminUser nonAdminUser)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +139,6 @@ namespace Group7_iFINANCEAPP.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AdministratorID = new SelectList(db.Administrator, "ID", "name", nonAdminUser.AdministratorID);
             return View(nonAdminUser);
         }
 
@@ -99,7 +158,74 @@ namespace Group7_iFINANCEAPP.Controllers
         }
 
         // GET: NonAdminUsers/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult EditAdmin(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Administrator admin = db.Administrator.Find(id);
+            if (admin == null)
+            {
+                return HttpNotFound();
+            }
+            return View(admin);
+        }
+
+        // POST: NonAdminUsers/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+        [HttpPost, ActionName("EditAdmin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAdminPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var admin = db.Administrator.Find(id);
+            if (admin == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (Request.Form["password"].Length > 0)
+            {
+                byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
+                byte[] hash = SHA256.Create().ComputeHash(pass);
+
+                int? adminUserID = id;
+
+                UserPassword pwd = db.UserPassword.Where(p => p.AdministratorID == adminUserID).FirstOrDefault();
+
+                pwd.encryptedPassword = GetHashString(hash);
+                db.Entry(pwd).State = EntityState.Modified;
+            }
+
+            if (TryUpdateModel(admin, "",
+                new string[] { "name", "dateHired", "dateFinished" }))
+            {
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (DataException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            return View(admin);
+
+        }
+
+        // GET: NonAdminUsers/Edit/5
+        public ActionResult EditNonAdmin(int? id)
         {
             if (id == null)
             {
@@ -110,7 +236,6 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AdministratorID = new SelectList(db.Administrator, "ID", "name", nonAdminUser.AdministratorID);
             return View(nonAdminUser);
         }
 
@@ -118,41 +243,10 @@ namespace Group7_iFINANCEAPP.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
 
-        /*
-        [HttpPost]
+
+        [HttpPost, ActionName("EditNonAdmin")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name,address,email,AdministratorID")] NonAdminUser nonAdminUser)
-        {
-            if (ModelState.IsValid)
-            {
-                
-                if (Request.Form["password"].Length > 0)
-                {
-                    byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
-                    byte[] hash = SHA256.Create().ComputeHash(pass);
-
-                    int? nonAdminUserID = id;
-
-                    UserPassword pwd = db.UserPassword.Where(p => p.NonAdminUserID == nonAdminUserID).FirstOrDefault();
-
-                    pwd.encryptedPassword = GetHashString(hash);
-                    //db.Entry(pwd).State = EntityState.Modified;
-                    //db.SaveChanges();
-
-                }
-                
-                db.Entry(nonAdminUser).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.AdministratorID = new SelectList(db.Administrator, "ID", "name", nonAdminUser.AdministratorID);
-            return View(nonAdminUser);
-        }
-        */
-
-        [HttpPost, ActionName("Edit")]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditPost(int? id)
+        public ActionResult EditNonAdminPost(int? id)
         {
             if (id == null)
             {
@@ -193,13 +287,38 @@ namespace Group7_iFINANCEAPP.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
             }
-            ViewBag.AdministratorID = new SelectList(db.Administrator, "ID", "name", nonAdminUser.AdministratorID);
             return View(nonAdminUser);
 
         }
 
         // GET: NonAdminUsers/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteAdmin(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Administrator admin = db.Administrator.Find(id);
+            if (admin == null)
+            {
+                return HttpNotFound();
+            }
+            return View(admin);
+        }
+
+        // POST: NonAdminUsers/Delete/5
+        [HttpPost, ActionName("DeleteAdmin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAdminConfirmed(int id)
+        {
+            Administrator admin = db.Administrator.Find(id);
+            db.Administrator.Remove(admin);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // GET: NonAdminUsers/Delete/5
+        public ActionResult DeleteNonAdmin(int? id)
         {
             if (id == null)
             {
@@ -214,9 +333,9 @@ namespace Group7_iFINANCEAPP.Controllers
         }
 
         // POST: NonAdminUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteNonAdmin")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteNonAdminConfirmed(int id)
         {
             NonAdminUser nonAdminUser = db.NonAdminUser.Find(id);
             db.NonAdminUser.Remove(nonAdminUser);

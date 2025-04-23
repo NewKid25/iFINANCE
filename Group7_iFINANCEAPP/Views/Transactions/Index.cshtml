@@ -1,63 +1,89 @@
 ﻿@model IEnumerable<Group7_iFINANCEAPP.Models.ViewModels.TransactionWithLinesViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Double-Entry Transactions";
 }
 
-<h2>Double-Entry Transactions</h2>
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
 
-<p>
-    @Html.ActionLink("Enter New Transaction", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Actions</th>
-        <th>Transaction Lines</th>
-    </tr>
+        <h2 class="text-center mb-4">Double-Entry Transactions</h2>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Transaction.date</td>
-            <td>@item.Transaction.description</td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Transaction.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Transaction.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Transaction.ID })
-            </td>
-            <td>
-                <table class="table table-sm table-striped">
+        <div class="text-center mb-4">
+            @Html.ActionLink("Enter New Transaction", "Create", null, new { @class = "btn btn-outline-primary btn-lg" })
+        </div>
+
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                    <th>Transaction Lines</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>Credit</th>
-                        <th>Credit Account</th>
-                        <th>Debit</th>
-                        <th>Debit Account</th>
-                        <th>Comment</th>
-                        <th>Actions</th>
+                        <td>@item.Transaction.date</td>
+                        <td>@item.Transaction.description</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Transaction.ID }, new { @class = "btn btn-sm btn-primary" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Transaction.ID }, new { @class = "btn btn-sm btn-primary" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Transaction.ID }, new { @class = "btn btn-sm btn-danger" })
+                        </td>
+                        <td>
+                            <table class="table table-sm table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Credit</th>
+                                        <th>Credit Account</th>
+                                        <th>Debit</th>
+                                        <th>Debit Account</th>
+                                        <th>Comment</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var line in item.TransactionLines)
+                                    {
+                                        <tr>
+                                            <td>@line.creditedAmount</td>
+                                            <td>@((line.MasterAccount == null) ? "" : line.MasterAccount.name)</td>
+                                            <td>@line.debitedAmount</td>
+                                            <td>@((line.MasterAccount1 == null) ? "" : line.MasterAccount1.name)</td>
+                                            <td>@line.comment</td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", "TransactionLines", new { id = line.ID }, new { @class = "btn btn-sm btn-primary" }) |
+                                                @Html.ActionLink("Details", "Details", "TransactionLines", new { id = line.ID }, new { @class = "btn btn-sm btn-primary" }) |
+                                                @Html.ActionLink("Delete", "Delete", "TransactionLines", new { id = line.ID }, new { @class = "btn btn-sm btn-danger" })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <p class="text-center">
+                                @Html.ActionLink("Enter New Transaction Line", "Create", "TransactionLines", new { transactionId = item.Transaction.ID }, new { @class = "btn btn-primary" })
+                            </p>
+                        </td>
                     </tr>
-                    @foreach (var line in item.TransactionLines)
-                    {
-                        <tr>
-                            <td>@line.creditedAmount</td>
-                            <td>@((line.MasterAccount == null) ? "" : line.MasterAccount.name)</td>
-                            <td>@line.debitedAmount</td>
-                            <td>@((line.MasterAccount1 == null) ? "" : line.MasterAccount1.name)</td>
-                            <td>@line.comment</td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", "TransactionLines", new { id = line.ID}, null) |
-                                @Html.ActionLink("Details", "Details", "TransactionLines", new { id = line.ID }, null) |
-                                @Html.ActionLink("Delete", "Delete", "TransactionLines", new { id = line.ID }, null)
-                            </td>
-                        </tr>
-                    }
-                </table>
-                <p>
-                    @Html.ActionLink("Enter New Transaction Line", "Create", "TransactionLines", new {transactionId = item.Transaction.ID }, null)
-                </p>
-            </td>
-        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
     }
 
-</table>
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>

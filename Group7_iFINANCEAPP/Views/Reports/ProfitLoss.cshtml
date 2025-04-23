@@ -1,58 +1,81 @@
 ﻿@model Group7_iFINANCEAPP.Models.ViewModels.ProfitLossViewModel
 
 @{
-    ViewBag.Title = "ProfitLoss";
+    ViewBag.Title = "Profit & Loss Report";
 }
 
-<h2>ProfitLossReport</h2>
-<table class="table-bordered w-100">
-    <tr>
-        <th colspan="2"><h3>Income</h3></th>
-    </tr>
-    @*<tr>
-            <th>Accont Name</th>
-        </tr>*@
-    @foreach (var account in Model.incomeAccounts)
-    {
-        <tr>
-            <td>@account.name</td>
-            <td>@account.closingAmount</td>
-        </tr>
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
+        <h2 class="text-center mb-4">Profit & Loss Report</h2>
+
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th colspan="2"><h3>Income</h3></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var account in Model.incomeAccounts)
+                {
+                    <tr>
+                        <td>@account.name</td>
+                        <td class="text-end">@account.closingAmount.ToString("C")</td>
+                    </tr>
+                }
+                <tr>
+                    <td>Total Income</td>
+                    <td class="text-end">@Model.totalIncome.ToString("C")</td>
+                </tr>
+            </tbody>
+
+
+            <thead class="table-light">
+                <tr>
+                    <th colspan="2" class="text-center h4 bg-light">Expenses</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var account in Model.expenseAccounts)
+                {
+                    <tr>
+                        <td>@account.name</td>
+                        <td class="text-end text-danger">(@account.closingAmount.ToString("C"))</td>
+                    </tr>
+                }
+                <tr class="fw-bold table-danger">
+                    <td>Total Expenses</td>
+                    <td class="text-end text-danger">(@Model.totalExpense.ToString("C"))</td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr class="fw-bold">
+                    <td>Profit / (Loss)</td>
+                    @{
+                        var net = Model.totalIncome - Model.totalExpense;
+                        var isProfit = net >= 0;
+                    }
+                    <td class="text-end @(isProfit ? "text-success" : "text-danger")">
+                        @(isProfit ? net.ToString("C") : "(" + Math.Abs(net).ToString("C") + ")")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-center mt-4">
+            @Html.ActionLink("Back to Reports", "Index", "Reports", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
     }
-    <tr>
-        <td>Total Income</td>
-        <td>@Model.totalIncome</td>
-    </tr>
 
-
-    <tr>
-        <th colspan="2"><h3>Expenses</h3></th>
-    </tr>
-    @foreach (var account in Model.expenseAccounts)
-    {
-        <tr>
-            <td>@account.name</td>
-            <td>(@account.closingAmount)</td>
-        </tr>
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
     }
-
-    <tr>
-        <td>Total Expenses</td>
-        <td>(@Model.totalExpense)</td>
-    </tr>
-
-    <tr>
-        <td>Profit / (Loss)</td>
-        @if(Model.totalExpense > Model.totalIncome)
-        {
-            <td>(@(Model.totalExpense-Model.totalIncome))</td>
-        }
-        else 
-        {
-            <td>@(Model.totalIncome- Model.totalExpense)</td>
-        }
-    </tr>
-</table>
-
-
-
+</style>

@@ -1,0 +1,45 @@
+﻿@model Group7_iFINANCEAPP.Models.NonAdminUser
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
+        <h2 class="mb-4 text-center">User Details</h2>
+
+        <div class="card-body">
+            <h4 class="card-title mb-4">User Account</h4>
+            <dl class="row">
+                <dt class="col-sm-3">Name</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.name)</dd>
+
+                <dt class="col-sm-3">Address</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.address)</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.email)</dd>
+
+                <dt class="col-sm-3">Admin Name</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Administrator.name)</dd>
+            </dl>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            @Html.ActionLink("Edit", "EditNonAdmin", new { id = Model.ID }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>

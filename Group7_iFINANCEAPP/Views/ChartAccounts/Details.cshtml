@@ -4,61 +4,41 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
+        <h2 class="text-center mb-4">Master Account Details</h2>
 
-<div>
-    <h4>MasterAccount</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ID)
-        </dt>
+        <dl class="row">
+            <dt class="col-sm-4">Account ID</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.ID)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ID)
-        </dd>
+            <dt class="col-sm-4">Account Name</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.name)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
+            <dt class="col-sm-4">Opening Amount</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.openingAmount)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
+            <dt class="col-sm-4">Closing Amount</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.closingAmount)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.openingAmount)
-        </dt>
+            <dt class="col-sm-4">Group ID</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.GroupID)</dd>
+        </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.openingAmount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.closingAmount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.closingAmount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GroupID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GroupID)
-        </dd>
-
-    </dl>
+        <div class="text-center mt-4">
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary btn-lg" })
+        </div>
+    </div>
 </div>
 
-<div class="form-group">
-    <div class="col-md-offset-2 col-md-10" style="margin-top: 10px;">
-        <input type="submit" value="Save" class="btn btn-primary" />
-        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
-    </div>
-@*<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>

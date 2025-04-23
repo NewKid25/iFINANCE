@@ -4,63 +4,45 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="container my-5">
+    <div class="card shadow-sm rounded-4 p-5">
+        <h2 class="text-center mb-4">Transaction Line Details</h2>
 
-<div>
-    <h4>Transaction Line</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Credit Value
-        </dt>
+        <dl class="row">
+            <dt class="col-sm-4">Credit Value</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.creditedAmount)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.creditedAmount)
-        </dd>
+            <dt class="col-sm-4">Credit Account</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.MasterAccount.name)</dd>
 
-        <dt>
-            Credit Account
-        </dt>
+            <dt class="col-sm-4">Debit Value</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.debitedAmount)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.MasterAccount.name)
-        </dd>
+            <dt class="col-sm-4">Debit Account</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.MasterAccount1.name)</dd>
 
-        <dt>
-            Debit Value
-        </dt>
+            <dt class="col-sm-4">Comment</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.comment)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.debitedAmount)
-        </dd>
+            <dt class="col-sm-4">Transaction Description</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Transaction.description)</dd>
+        </dl>
 
-        <dt>
-            Debit Account
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MasterAccount1.name)
-        </dd>
-
-        <dt>
-            Comment
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.comment)
-        </dd>
-
-        <dt>
-            Description
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Transaction.description)
-        </dd>
-
-    </dl>
+        <div class="text-center mt-4">
+            @Html.ActionLink("Edit", "Edit", "TransactionLines", new { id = Model.ID }, new { @class = "btn btn-primary btn-lg me-3" })
+            @Html.ActionLink("Back to List", "Index", "Transactions", null, new { @class = "btn btn-secondary btn-lg" })
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", "TransactionLines", new { id = Model.ID }, new { @class = "btn btn-primary"})
-    @Html.ActionLink("Back to List", "Index", "Transactions", null, new { @class = "btn btn-secondary"})
-</p>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>

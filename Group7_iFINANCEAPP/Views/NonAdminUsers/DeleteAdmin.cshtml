@@ -1,4 +1,4 @@
-﻿@model Group7_iFINANCEAPP.Models.Transaction
+﻿@model Group7_iFINANCEAPP.Models.Administrator
 
 @{
     ViewBag.Title = "Delete";
@@ -6,20 +6,18 @@
 
 <div class="container my-5">
     <div class="card shadow-sm rounded-4 p-5">
-        <h2 class="text-center mb-4">Delete Transaction</h2>
-
-        <h4 class="text-danger text-center">Are you sure you want to delete this?</h4>
-        <hr />
+        <h2 class="text-center mb-4">Confirm Deletion</h2>
+        <h4 class="text-center text-danger mb-4">Are you sure you want to delete this user account?</h4>
 
         <dl class="row">
-            <dt class="col-sm-3">Date & Time</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.date)</dd>
+            <dt class="col-sm-4">Name</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.name)</dd>
 
-            <dt class="col-sm-3">Description</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.description)</dd>
+            <dt class="col-sm-4">Date Hired</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.dateHired)</dd>
 
-            <dt class="col-sm-3">User Name</dt>
-            <dd class="col-sm-9">@Html.DisplayFor(model => model.NonAdminUser.name)</dd>
+            <dt class="col-sm-4">Date Finished</dt>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.dateFinished)</dd>
         </dl>
 
         @using (Html.BeginForm())

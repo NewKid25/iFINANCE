@@ -1,16 +1,37 @@
-﻿
-
-@{
+﻿@{
     ViewBag.Title = "ReportsPage";
 }
 
-<h2>Reports</h2>
-<p>From this page you can generate reports about you finances.</p>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm rounded-4">
+                <div class="card-body p-5">
+                    <h2 class="card-title mb-3 text-center">Financial Reports</h2>
+                    <p class="text-muted text-center mb-4">
+                        From this page, you can generate reports about your finances.
+                    </p>
 
-<h5>Select what report you would like to generate.</h5>
-<div>
-    <p>@Html.ActionLink("Profit Loss", "ProfitLoss", "Reports", null, new { @class = "btn btn-outline-dark" })</p>
-    <p>@Html.ActionLink("Trial Balance", "TrialBalance", "Reports", null, new { @class = "btn btn-outline-dark" })</p>
+                    <h5 class="mb-4 text-center">Select a report to generate:</h5>
 
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        @Html.ActionLink("Profit & Loss", "ProfitLoss", "Reports", null, new { @class = "btn btn-primary px-4 py-2" })
+                        @Html.ActionLink("Trial Balance", "TrialBalance", "Reports", null, new { @class = "btn btn-primary px-4 py-2" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>

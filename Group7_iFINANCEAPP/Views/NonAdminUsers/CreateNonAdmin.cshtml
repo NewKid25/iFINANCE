@@ -1,0 +1,70 @@
+﻿@model Group7_iFINANCEAPP.Models.NonAdminUser
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="container my-5">
+    <h2 class="mb-4">Create User Account</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card shadow-sm rounded-4 p-5">
+            <div class="card-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.name, "Name", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.address, "Address", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.email, "Email", htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input id="username" name="username" type="text" class="form-control" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input id="password" name="password" type="text" class="form-control" />
+                </div>
+
+                <div class="d-flex gap-2">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <a href="@Url.Action("Index", "NonAdminUsers")" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<style>
+    .btn-primary {
+        background-color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .btn-primary:hover {
+        background-color: #7048a0;
+        border-color: #7048a0;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
