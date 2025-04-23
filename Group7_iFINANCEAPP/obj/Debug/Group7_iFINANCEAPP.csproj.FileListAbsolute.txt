@@ -159,4 +159,4 @@ C:\Projects\iFINANCE\Group7_iFINANCEAPP\bin\System.Web.WebPages.Razor.xml
 C:\Projects\iFINANCE\Group7_iFINANCEAPP\bin\Newtonsoft.Json.xml
 C:\Projects\iFINANCE\Group7_iFINANCEAPP\bin\Antlr3.Runtime.pdb
 C:\Projects\iFINANCE\Group7_iFINANCEAPP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Projects\iFINANCE\Group7_iFINANCEAPP\obj\Debug\Group7_iFINANCEAPP.csproj.CopyComplete
+C:\Projects\iFINANCE\Group7_iFINANCEAPP\obj\Debug\Group7_i.59E4F5D5.Up2Date
