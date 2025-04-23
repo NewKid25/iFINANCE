@@ -180,6 +180,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\ProfitLossViewModel.cs" />
+    <Compile Include="Models\ViewModels\ManageUsersViewModel.cs" />
     <Compile Include="Models\ViewModels\TrialBalanceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
