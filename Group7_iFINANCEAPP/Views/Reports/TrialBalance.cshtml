@@ -35,6 +35,21 @@
             </tbody>
         </table>
 
+
+        @if (Model.totalDebit != Model.totalCredit)
+        {
+            <div class="alert alert-danger">
+                <h4>Warning!</h4>
+                <p>
+                    It appears the sum of all debit accounts does not equal the sum of all credit accounts.
+                    This is likely because you forgot to create an account, or to debit or credit an account in a
+                    transaction properly. Reexamine your accounts and transactions to make sure you following
+                    the double account methodology properly.
+                </p>
+            </div>
+        }
+
+
         <div class="text-center mt-4">
             @Html.ActionLink("Back to Reports", "Index", "Reports", null, new { @class = "btn btn-primary" })
         </div>
@@ -42,6 +57,7 @@
 </div>
 
 <style>
+
     .btn-primary {
         background-color: #8058ac;
         border-color: #8058ac;
