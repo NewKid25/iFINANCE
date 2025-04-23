@@ -18,22 +18,9 @@ namespace Group7_iFINANCEAPP.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            
-                int id = (int)Session["NonAdminUserID"];
-                var user = db.NonAdminUser.Find(id);
-                ViewBag.UserName = user.name;
-
-                //ViewBag.TransactionCount = db.Transaction.Count(t => t.NonAdminUserID == id);  // update field if needed
-                //ViewBag.TotalAssets = db.MasterAccount
-                //                        .Where(a => a.Group.NonAdminUserID == id)
-                //                        .Select(a => a.closingAmount)
-                //                        .DefaultIfEmpty(0)
-                //                        .Sum();
-
-                //ViewBag.Liabilities = db.MasterAccount.Where(a => a.Group);     // placeholder
-                //ViewBag.Income = ;     // placeholder
-                //ViewBag.Expenses = ;  // placeholder
-            
+            int id = (int)Session["NonAdminUserID"];
+            var user = db.NonAdminUser.Find(id);
+            ViewBag.UserName = user.name;
 
             return View(user);
         }
