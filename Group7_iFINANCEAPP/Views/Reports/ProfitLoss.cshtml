@@ -9,9 +9,6 @@
     <tr>
         <th colspan="2"><h3>Income</h3></th>
     </tr>
-    @*<tr>
-            <th>Accont Name</th>
-        </tr>*@
     @foreach (var account in Model.incomeAccounts)
     {
         <tr>
@@ -54,5 +51,14 @@
     </tr>
 </table>
 
+<style>
+    th, td {
+        padding: 0 1%;
+    }
+
+    tr:nth-child(even) {
+        background-color: #e9e9e9;
+    }
+</style>
 
 

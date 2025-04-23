@@ -24,17 +24,37 @@
         <td>Total</td>
         <td>@Model.totalDebit</td>
         <td>@Model.totalCredit</td>
-
     </tr>
+
 </table>
 
+@if(Model.totalDebit != Model.totalCredit)
+{
+    <div class="error-box">
+        <h4>Warning!</h4>
+        <p>It appears the sum of all debit accounts does not equal the sum of all credit accounts.
+            This is likely because you forgot to create an account, or to debit or credit an account in a
+            transaction properly. Reexamine your accounts and transactions to make sure you following 
+            the double account methodology properly.
+        </p>
+    </div>
+}
 
-<style>
+<style lang="scss">
     th,td{
         padding : 0 1%;
     }
     tr:nth-child(even) {
         background-color: #e9e9e9;
+    }
+
+    .error-box {
+        margin-top: 2rem;
+        padding:.5rem;
+        background-color: #efefef;
+        h4, p {
+            color: #d42d2e;
+        }
     }
 </style>
 
