@@ -13,7 +13,7 @@ namespace Group7_iFINANCEAPP.Controllers
         private Group7_iFINANCEDBEntities db = new Group7_iFINANCEDBEntities();
         public ActionResult Index()
         {
-            if (Session["NonAdminUserID"] == null && Session["AdministratorID"] == null)
+            if (Session["NonAdminUserID"] == null)
             {
                 return RedirectToAction("Index", "Login");
             }

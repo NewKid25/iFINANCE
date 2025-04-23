@@ -203,6 +203,8 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\images\chart of accounts.png" />
     <Content Include="Content\images\groups.png" />
+    <Content Include="Content\images\iFINANCE-login.gif" />
+    <Content Include="Content\images\iFINANCE-login_1.gif" />
     <Content Include="Content\images\login graphic.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\reports.png" />
@@ -234,6 +236,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Compile Include="Models\ViewModels\TransactionWithLinesViewModel.cs" />
+    <Content Include="Content\images\login-animation.json" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
