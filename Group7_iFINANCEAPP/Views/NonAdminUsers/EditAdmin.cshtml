@@ -24,13 +24,13 @@
 
                     <div class="mb-3">
                         @Html.LabelFor(model => model.dateHired, "Date Hired", htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.dateHired, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.dateHired, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = (Model.dateHired != null ? ((DateTime)Model.dateHired).ToString("yyyy-MM-dd") : "" )} })
                         @Html.ValidationMessageFor(model => model.dateHired, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="mb-3">
                         @Html.LabelFor(model => model.dateFinished, "Date Finished", htmlAttributes: new { @class = "form-label" })
-                        @Html.EditorFor(model => model.dateFinished, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.dateFinished, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = (Model.dateFinished != null ? ((DateTime)Model.dateFinished).ToString("yyyy-MM-dd") : "") } })
                         @Html.ValidationMessageFor(model => model.dateFinished, "", new { @class = "text-danger" })
                     </div>
 

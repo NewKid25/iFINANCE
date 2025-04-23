@@ -169,6 +169,7 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(admin);
         }
 
@@ -236,6 +237,12 @@ namespace Group7_iFINANCEAPP.Controllers
             {
                 return HttpNotFound();
             }
+
+            UserPassword pwd = db.UserPassword.Where(p => p.NonAdminUserID == id).FirstOrDefault();
+
+            ViewBag.passwordExpiryDate = pwd.passwordExpiryTime;
+            ViewBag.userAccountExpiryDate = pwd.userAccountExpiryDate;
+
             return View(nonAdminUser);
         }
 
@@ -259,6 +266,7 @@ namespace Group7_iFINANCEAPP.Controllers
                 return HttpNotFound();
             }
 
+            UserPassword pwd = db.UserPassword.Where(p => p.NonAdminUserID == id).FirstOrDefault();
             if (Request.Form["password"].Length > 0)
             {
                 byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
@@ -266,11 +274,29 @@ namespace Group7_iFINANCEAPP.Controllers
 
                 int? nonAdminUserID = id;
 
-                UserPassword pwd = db.UserPassword.Where(p => p.NonAdminUserID == nonAdminUserID).FirstOrDefault();
+                pwd = db.UserPassword.Where(p => p.NonAdminUserID == nonAdminUserID).FirstOrDefault();
 
                 pwd.encryptedPassword = GetHashString(hash);
+
                 db.Entry(pwd).State = EntityState.Modified;
             }
+
+            var s = Request.Form["userAccountExpiryDate"];
+
+            if (s.Length > 0)
+            {
+                pwd.userAccountExpiryDate = DateTime.Parse(Request.Form["userAccountExpiryDate"]);
+            }
+
+            s = Request.Form["passwordExpiryDate"];
+
+            if (s.Length > 0)
+            {
+
+                pwd.passwordExpiryTime = DateTime.Parse(Request.Form["passwordExpiryDate"]);
+            }
+            db.Entry(pwd).State = EntityState.Modified;
+
 
             if (TryUpdateModel(nonAdminUser, "",
                 new string[] { "name", "address", "email" }))
