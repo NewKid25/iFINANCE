@@ -69,10 +69,37 @@
 
         <div class="text-center mt-4">
             @Html.ActionLink("Back to Reports", "Index", "Reports", null, new { @class = "btn btn-primary" })
+            <a class="btn btn-primary" onclick="print()">Print to PDF</a>
+
         </div>
     </div>
 </div>
 
+<table class="table table-bordered table-hover align-middle print-visible">
+    <thead class="table-light">
+        <tr>
+            <th>Account Name</th>
+            <th class="text-end">Debit Amount</th>
+            <th class="text-end">Credit Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var lineItem in Model.lineItems)
+        {
+            <tr>
+                <td>@lineItem.accountName</td>
+                <td class="text-end">@((lineItem.debit == null) ? "" : $"${Math.Round(lineItem.debit ?? 0.0, 2):0.00}")</td>
+                <td class="text-end">@((lineItem.credit == null) ? "" : $"${Math.Round(lineItem.credit ?? 0.0, 2):0.00}")</td>
+            </tr>
+
+        }
+        <tr class="fw-bold table-light">
+            <td>Total</td>
+            <td class="text-end">@Model.totalDebit.ToString("C")</td>
+            <td class="text-end">@Model.totalCredit.ToString("C")</td>
+        </tr>
+    </tbody>
+</table>
 <style>
 
     .btn-primary {
@@ -80,8 +107,34 @@
         border-color: #8058ac;
     }
 
-    .btn-primary:hover {
-        background-color: #7048a0;
-        border-color: #7048a0;
+        .btn-primary:hover {
+            background-color: #7048a0;
+            border-color: #7048a0;
+        }
+
+    @@media not print {
+        .print-visible {
+            display: none;
+        }
+    }
+
+    @@media print {
+
+        .body-content .container, .navbar, .footer {
+            display: none !important;
+        }
+
+        .body-content .print-visible {
+            width: 100%;
+        }
+
+        .table-bordered > :not(caption) > * > * {
+            border-width: 0 1.5px;
+        }
+
+        .table-bordered > :not(caption) > * {
+            border-width: 1.5px 0;
+        }
+
     }
 </style>
