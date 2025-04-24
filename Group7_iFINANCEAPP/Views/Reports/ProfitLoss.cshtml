@@ -56,7 +56,7 @@
                     }
                     <td><span id="profit-label" class="@(isProfit ? "big-label" : "")">Profit</span> / <span id="loss-label" class="@(!isProfit ? "big-label" : "")">(Loss)</span></td>
                     <td class="text-end @(isProfit ? "text-success" : "text-danger")">
-                        @(isProfit ? "+" + net.ToString("C") : "-(" + Math.Abs(net).ToString("C") + ")")
+                        @(isProfit ? net.ToString("C") : "(" + Math.Abs(net).ToString("C") + ")")
                     </td>
                 </tr>
             </tfoot>
