@@ -27,7 +27,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View();
         }
 
-        public ActionResult ProfitLoss()
+        public ActionResult ProfitLoss(string before, string after)
         {
             int nonAdminUserID = (int)Session["NonAdminUserID"];
 
@@ -35,17 +35,89 @@ namespace Group7_iFINANCEAPP.Controllers
             var incomeAccounts = masterAccounts.Where(a => a.Group.AccountCategory.name == "Income").ToList();
             var expenseAccounts = masterAccounts.Where(a => a.Group.AccountCategory.name == "Expenses").ToList();
 
-            var totalIncome = incomeAccounts.Sum(acct => acct.closingAmount);
-            var totalExpense = expenseAccounts.Sum(acct => acct.closingAmount);
+            double totalIncome;
+            double totalExpense;
 
-            return View(new ProfitLossViewModel(incomeAccounts,expenseAccounts,totalIncome, totalExpense));
+            if (before == null && after == null)
+            {
+                totalIncome = incomeAccounts.Sum(acct => acct.closingAmount);
+                totalExpense = expenseAccounts.Sum(acct => acct.closingAmount);
+            }
+            else
+            {
+                totalIncome = 0;
+                totalExpense = 0;
+
+                DateTime bef = DateTime.MaxValue;
+                DateTime aft = DateTime.MinValue;
+
+                if (before != null)
+                {
+                    try
+                    {
+                        bef = DateTime.Parse(before);
+                    }
+                    catch (FormatException) { }
+                }
+
+                if (after != null)
+                {
+                    try
+                    {
+                        aft = DateTime.Parse(after);
+                    }
+                    catch (FormatException) { }
+                }
+
+                foreach (var account in incomeAccounts)
+                {
+                    account.closingAmount = 0;
+                    account.closingAmount -= account.TransactionLine1.Where(t => t.Transaction.date > aft && bef > t.Transaction.date).Sum(t => t.debitedAmount) ?? 0;
+                    account.closingAmount += account.TransactionLine.Where(t => t.Transaction.date > aft && bef > t.Transaction.date).Sum(t => t.creditedAmount) ?? 0;
+
+                    totalIncome += account.closingAmount;
+                }
+
+                foreach (var account in expenseAccounts)
+                {
+                    account.closingAmount = 0;
+                    account.closingAmount += account.TransactionLine1.Where(t => t.Transaction.date > aft && bef > t.Transaction.date).Sum(t => t.debitedAmount) ?? 0;
+                    account.closingAmount -= account.TransactionLine.Where(t => t.Transaction.date > aft && bef > t.Transaction.date).Sum(t => t.creditedAmount) ?? 0;
+
+                    totalExpense += account.closingAmount;
+                }
+            }
+
+                return View(new ProfitLossViewModel(incomeAccounts,expenseAccounts,totalIncome, totalExpense));
         }
 
-        public ActionResult TrialBalance()
+        public ActionResult TrialBalance(string before, string after)
         {
             int nonAdminUserID = (int)Session["NonAdminUserID"];
 
             var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
+
+
+            DateTime bef = DateTime.MaxValue;
+            DateTime aft = DateTime.MinValue;
+
+            if (before != null)
+            {
+                try
+                {
+                    bef = DateTime.Parse(before);
+                }
+                catch (FormatException) { }
+            }
+
+            if (after != null)
+            {
+                try
+                {
+                    aft = DateTime.Parse(after);
+                }
+                catch (FormatException) { }
+            }
 
             var trialBalanceLineItems = new List<TrailBalanceLineItem>();
             foreach(var account in masterAccounts)
@@ -53,10 +125,24 @@ namespace Group7_iFINANCEAPP.Controllers
                 var lineItem = new TrailBalanceLineItem(account.name);
                 if(account.Group.AccountCategory.type == "Debit")
                 {
+                    if (before != null || after != null)
+                    {
+                        account.closingAmount = 0;
+                        account.closingAmount += account.TransactionLine1.Where(t => t.Transaction.date > aft && bef > t.Transaction.date).Sum(t => t.debitedAmount) ?? 0;
+                        account.closingAmount -= account.TransactionLine.Where(t => t.Transaction.date > aft && bef > t.Transaction.date).Sum(t => t.creditedAmount) ?? 0;
+                    }
+
                     lineItem.debit = account.closingAmount;
                 }
                 else
                 {
+                    if (before == null || after == null)
+                    {
+                        account.closingAmount = 0;
+                        account.closingAmount -= account.TransactionLine1.Where(t => t.Transaction.date > aft && bef > t.Transaction.date).Sum(t => t.debitedAmount) ?? 0;
+                        account.closingAmount += account.TransactionLine.Where(t => t.Transaction.date > aft && bef > t.Transaction.date).Sum(t => t.creditedAmount) ?? 0;
+                    }
+
                     lineItem.credit = account.closingAmount;
                 }
                 trialBalanceLineItems.Add(lineItem);
