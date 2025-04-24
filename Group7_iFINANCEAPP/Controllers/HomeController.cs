@@ -13,6 +13,7 @@ namespace Group7_iFINANCEAPP.Controllers
         private Group7_iFINANCEDBEntities db = new Group7_iFINANCEDBEntities();
         public ActionResult Index()
         {
+            // Redirect if not authenticated -- Admin only sees Manage Users
             if (Session["NonAdminUserID"] == null)
             {
                 return RedirectToAction("Index", "Login");

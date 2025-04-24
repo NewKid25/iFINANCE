@@ -17,6 +17,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: Groups
         public ActionResult Index()
         {
+            // Redirect to login if not authenticated
             if (Session["NonAdminUserID"] == null)
             {
                 return RedirectToAction("Index", "Login");
@@ -26,9 +27,8 @@ namespace Group7_iFINANCEAPP.Controllers
             
             var group = db.Group.Where(g => g.NonAdminUserID == nonAdminUserID).Include(g => g.AccountCategory);
 
-
+            // Provide the account categories to the view
             ViewBag.AccountCategories = db.AccountCategory;
-            var k = group.ToList();
 
             return View(group.ToList());
             
@@ -50,41 +50,28 @@ namespace Group7_iFINANCEAPP.Controllers
         }
 
         // GET: Groups/Create
-
-        /*
-        public ActionResult Create()
-        {
-            ViewBag.AccountCategoryID = new SelectList(db.AccountCategory, "ID", "name");
-            // TODO: Replace with currently authenticated user
-            ViewBag.NonAdminUserID = new SelectList(db.NonAdminUser, "ID", "name");
-            return View();
-        }
-        */
-
         public ActionResult Create(int? accountCategoryID, int? parentID)
         {
-
+            // Subgroup of another group
             if (parentID != null)
             {
                 ViewBag.parentName = db.Group.Find(parentID).name;
             }
+            // Top level group in a particular account category
             else if (accountCategoryID != null)
             {
                 ViewBag.parentName = db.AccountCategory.Find(accountCategoryID).name;
-            } else
+            }
+            // Bad request
+            else
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            // TODO: Replace with currently authenticated user
-            ViewBag.NonAdminUserID = new SelectList(db.NonAdminUser, "ID", "name");
 
             return View();
         }
 
         // POST: Groups/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "name,AccountCategoryID")] Group group, int?parentID)
@@ -92,6 +79,7 @@ namespace Group7_iFINANCEAPP.Controllers
             if (parentID != null)
             {
                 group.parentID = parentID;
+                // Account category should match the parent
                 group.AccountCategoryID = db.Group.Find(parentID).AccountCategoryID;
             }
             
@@ -126,29 +114,6 @@ namespace Group7_iFINANCEAPP.Controllers
         }
 
         // POST: Groups/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-
-        // This was the auto-generated code, but does not work because Bind will clear
-        // all the non-bound attributes, but we don't want to bind to every attribute. Updated method below
-        // See: https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#update-httppost-edit-method
-
-        /*
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,name,AccountCategoryID")] Group group)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(group).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.AccountCategoryID = new SelectList(db.AccountCategory, "ID", "name", group.AccountCategoryID);
-            return View(group);
-        }
-        */
-
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
@@ -205,11 +170,14 @@ namespace Group7_iFINANCEAPP.Controllers
         {
             Group group = db.Group.Find(id);
 
+            // Will recursively remove children
             RemoveGroup(group, db);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        // Helper function to recursively remove contained subgroups and master accounts
         public static void RemoveGroup(Group group, Group7_iFINANCEDBEntities db)
         {
             group.Groups.ToList().ForEach(g => { RemoveGroup(g, db); });

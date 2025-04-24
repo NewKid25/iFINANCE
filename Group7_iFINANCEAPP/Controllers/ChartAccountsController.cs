@@ -18,6 +18,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: ChartAccounts
         public ActionResult Index()
         {
+            // Redirect to login if not authenticated
             if (Session["NonAdminUserID"] == null)
             {
                 return RedirectToAction("Index", "Login");
@@ -30,11 +31,14 @@ namespace Group7_iFINANCEAPP.Controllers
                 .Include(a => a.Group.AccountCategory)
                 .ToList();
 
+            // Recalculate closing balances just in case
             UpdateClosingBalance(nonAdminUserID, db);
 
             return View(masterAccounts);
         }
 
+        // Helper function to update closing balance of all accounts belonging to a user.
+        // Also called when a TransactionLine is created/edited
         public static void UpdateClosingBalance(int nonAdminUserID, Group7_iFINANCEDBEntities db)
         {
 
@@ -59,7 +63,7 @@ namespace Group7_iFINANCEAPP.Controllers
                     }
                 }
 
-                foreach (var line in masterAccount.TransactionLine1)
+                foreach (var line in masterAccount.TransactionLine1) // Debit entry
                 {
                     if (masterAccount.Group.AccountCategory.type == "Debit")
                     {
@@ -74,16 +78,17 @@ namespace Group7_iFINANCEAPP.Controllers
                 db.Entry(masterAccount).State = EntityState.Modified;
             }
 
+            // Accounts may already be up to date
             try
             {
                 db.SaveChanges();
             }
             finally
-            {
-
-            }
+            { }
         }
 
+        // Helper function to see what the closing value of an account would be if the provided
+        // debit were applied (used to determine warnings in TransactionLines)
         public static double CheckValueAfterDebit(MasterAccount masterAccount, double debit)
         {
             double amt = masterAccount.closingAmount;
@@ -100,6 +105,8 @@ namespace Group7_iFINANCEAPP.Controllers
             return amt;
         }
 
+        // Helper function to see what the closing value of an account would be if the provided
+        // credit were applied (used to determine warnings in TransactionLines)
         public static double CheckValueAfterCredit(MasterAccount masterAccount, double credit)
         {
             double amt = masterAccount.closingAmount;
@@ -175,8 +182,6 @@ namespace Group7_iFINANCEAPP.Controllers
         }
 
         // POST: ChartAccounts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,name,openingAmount,closingAmount,GroupID")] MasterAccount masterAccount)
@@ -212,6 +217,7 @@ namespace Group7_iFINANCEAPP.Controllers
         {
             MasterAccount masterAccount = db.MasterAccount.Find(id);
 
+            // Delete all corresponding transaction lines
             masterAccount.TransactionLine.ToList().ForEach(t => { db.TransactionLine.Remove(t); });
             masterAccount.TransactionLine1.ToList().ForEach(t => { db.TransactionLine.Remove(t); });
 
