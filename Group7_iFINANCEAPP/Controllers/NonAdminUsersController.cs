@@ -20,6 +20,8 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: NonAdminUsers
         public ActionResult Index(string searchString, string tab = "nonadmin")
         {
+            // If not authenticated, redirect to login page
+
             if (Session["AdministratorID"] == null)
             {
                 return RedirectToAction("Index", "Login");
@@ -28,6 +30,8 @@ namespace Group7_iFINANCEAPP.Controllers
             var nonAdminUser = db.NonAdminUser.Include(n => n.Administrator).AsQueryable();
 
             var adminUser = db.Administrator.AsQueryable();
+
+            // Apply search filtering
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -81,15 +85,13 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(nonAdminUser);
         }
 
-        // GET: NonAdminUsers/Create
+        // GET: NonAdminUsers/CreateAdmin
         public ActionResult CreateAdmin()
         {
             return View();
         }
 
-        // POST: NonAdminUsers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: NonAdminUsers/CreateAdmin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateAdmin([Bind(Include = "name,dateHired,dateFinished")] Administrator admin)
@@ -99,8 +101,12 @@ namespace Group7_iFINANCEAPP.Controllers
                 Administrator user = db.Administrator.Add(admin);
                 db.SaveChanges();
 
+                // Create associated UserPassword entry
+
                 UserPassword pwd = new UserPassword();
                 pwd.userName = Request.Form["username"];
+
+                // Encrypt password before storing in database
                 byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
                 byte[] hash = SHA256.Create().ComputeHash(pass);
 
@@ -117,15 +123,13 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(admin);
         }
 
-        // GET: NonAdminUsers/Create
+        // GET: NonAdminUsers/CreateNonAdmin
         public ActionResult CreateNonAdmin()
         {
             return View();
         }
 
-        // POST: NonAdminUsers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: NonAdminUsers/CreateNonAdmin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateNonAdmin([Bind(Include = "name,address,email")] NonAdminUser nonAdminUser)
@@ -138,8 +142,13 @@ namespace Group7_iFINANCEAPP.Controllers
                 NonAdminUser user = db.NonAdminUser.Add(nonAdminUser);
                 db.SaveChanges();
 
+                // Create associated UserPassword entry
+
                 UserPassword pwd = new UserPassword();
                 pwd.userName = Request.Form["username"];
+
+                // Encrypt password before storing in database
+
                 byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
                 byte[] hash = SHA256.Create().ComputeHash(pass);
 
@@ -156,6 +165,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(nonAdminUser);
         }
 
+        // Helper function to get a hashed string, used by LoginController as well
         public static string GetHashString(byte[] hash)
         {
             var sBuilder = new StringBuilder();
@@ -171,7 +181,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return sBuilder.ToString();
         }
 
-        // GET: NonAdminUsers/Edit/5
+        // GET: NonAdminUsers/EditAdmin/5
         public ActionResult EditAdmin(int? id)
         {
             if (id == null)
@@ -187,11 +197,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(admin);
         }
 
-        // POST: NonAdminUsers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-
-
+        // POST: NonAdminUsers/EditAdmin/5
         [HttpPost, ActionName("EditAdmin")]
         [ValidateAntiForgeryToken]
         public ActionResult EditAdminPost(int? id)
@@ -207,6 +213,7 @@ namespace Group7_iFINANCEAPP.Controllers
                 return HttpNotFound();
             }
 
+            // Only update password if a value was entered
             if (Request.Form["password"].Length > 0)
             {
                 byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
@@ -239,7 +246,7 @@ namespace Group7_iFINANCEAPP.Controllers
 
         }
 
-        // GET: NonAdminUsers/Edit/5
+        // GET: NonAdminUsers/EditNonAdmin/5
         public ActionResult EditNonAdmin(int? id)
         {
             if (id == null)
@@ -260,11 +267,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(nonAdminUser);
         }
 
-        // POST: NonAdminUsers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-
-
+        // POST: NonAdminUsers/EditNonAdmin/5
         [HttpPost, ActionName("EditNonAdmin")]
         [ValidateAntiForgeryToken]
         public ActionResult EditNonAdminPost(int? id)
@@ -280,6 +283,7 @@ namespace Group7_iFINANCEAPP.Controllers
                 return HttpNotFound();
             }
 
+            // Only update password if a value was entered
             UserPassword pwd = db.UserPassword.Where(p => p.NonAdminUserID == id).FirstOrDefault();
             if (Request.Form["password"].Length > 0)
             {
@@ -331,7 +335,7 @@ namespace Group7_iFINANCEAPP.Controllers
 
         }
 
-        // GET: NonAdminUsers/Delete/5
+        // GET: NonAdminUsers/DeleteAdmin/5
         public ActionResult DeleteAdmin(int? id)
         {
             if (id == null)
@@ -346,7 +350,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(admin);
         }
 
-        // POST: NonAdminUsers/Delete/5
+        // POST: NonAdminUsers/DeleteAdmin/5
         [HttpPost, ActionName("DeleteAdmin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteAdminConfirmed(int id)
@@ -358,6 +362,7 @@ namespace Group7_iFINANCEAPP.Controllers
             }
             Administrator admin = db.Administrator.Find(id);
 
+            // Delete associated UserPassword entry as well
             UserPassword p = db.UserPassword.Where(a => a.AdministratorID == id).First();
 
             db.UserPassword.Remove(p);
@@ -367,7 +372,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: NonAdminUsers/Delete/5
+        // GET: NonAdminUsers/DeleteNonAdmin/5
         public ActionResult DeleteNonAdmin(int? id)
         {
             if (id == null)
@@ -382,13 +387,14 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(nonAdminUser);
         }
 
-        // POST: NonAdminUsers/Delete/5
+        // POST: NonAdminUsers/DeleteNonAdmin/5
         [HttpPost, ActionName("DeleteNonAdmin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteNonAdminConfirmed(int id)
         {
             NonAdminUser nonAdminUser = db.NonAdminUser.Find(id);
 
+            // Delete associated UserPassword entry as well
             UserPassword p = db.UserPassword.Where(a => a.NonAdminUserID == id).First();
 
             db.UserPassword.Remove(p);

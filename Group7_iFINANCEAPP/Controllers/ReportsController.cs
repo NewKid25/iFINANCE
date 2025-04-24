@@ -19,6 +19,7 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: Reports
         public ActionResult Index()
         {
+            // Redirect to login if not authenticated
             if (Session["NonAdminUserID"] == null)
             {
                 return RedirectToAction("Index", "Login");
@@ -27,6 +28,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View();
         }
 
+        // GET: Reports/ProfitLoss
         public ActionResult ProfitLoss(string before, string after)
         {
             int nonAdminUserID = (int)Session["NonAdminUserID"];
@@ -38,11 +40,14 @@ namespace Group7_iFINANCEAPP.Controllers
             double totalIncome;
             double totalExpense;
 
+
+            // If date filtering is not applicable, sum all closing amounts
             if (before == null && after == null)
             {
                 totalIncome = incomeAccounts.Sum(acct => acct.closingAmount);
                 totalExpense = expenseAccounts.Sum(acct => acct.closingAmount);
             }
+            // Otherwise, filter to only transactions between the specified dates
             else
             {
                 totalIncome = 0;
@@ -88,16 +93,17 @@ namespace Group7_iFINANCEAPP.Controllers
                 }
             }
 
-                return View(new ProfitLossViewModel(incomeAccounts,expenseAccounts,totalIncome, totalExpense));
+            return View(new ProfitLossViewModel(incomeAccounts,expenseAccounts,totalIncome, totalExpense));
         }
 
+        // GET: Reports/TrialBalance
         public ActionResult TrialBalance(string before, string after)
         {
             int nonAdminUserID = (int)Session["NonAdminUserID"];
 
             var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
 
-
+            // Filter to transactions between the specified dates (if provided)
             DateTime bef = DateTime.MaxValue;
             DateTime aft = DateTime.MinValue;
 
@@ -154,8 +160,6 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(new TrialBalanceViewModel(trialBalanceLineItems,totalDebit,totalCredit));
         }
     }
-
-
 
     public enum ReportType
     {
