@@ -18,7 +18,7 @@ namespace Group7_iFINANCEAPP.Controllers
         private Group7_iFINANCEDBEntities db = new Group7_iFINANCEDBEntities();
 
         // GET: NonAdminUsers
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             if (Session["AdministratorID"] == null)
             {
@@ -28,6 +28,11 @@ namespace Group7_iFINANCEAPP.Controllers
             var nonAdminUser = db.NonAdminUser.Include(n => n.Administrator);
 
             var admin = db.Administrator;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                nonAdminUser = nonAdminUser.Where(n => n.name.Contains(searchString));
+            }
 
             var viewModel = new ManageUsersViewModel();
             

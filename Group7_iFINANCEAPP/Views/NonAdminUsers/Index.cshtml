@@ -6,6 +6,14 @@
 
 <div class="container my-5">
     <h2 class="text-center mb-4">Manage Users</h2>
+    
+    <div class="search-bar" style="display: flex; flex-direction: column; align-items: flex-end;">
+        @using (Html.BeginForm("Index", "NonAdminUsers", FormMethod.Get, new { @class = "d-flex", role = "search", style = "margin-bottom: 20px;" }))
+        {
+            <input class="form-control me-2" type="search" name="searchString" placeholder="Search by name" aria-label="Search" />
+            <button class="btn btn-outline-success search-button" type="submit">Search</button>
+        }
+    </div>
 
     <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -76,7 +84,7 @@
                                     @Html.ActionLink("Details", "DetailsAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-primary text-white me-1" })
                                     @if (item.ID != (int)Session["AdministratorID"])
                                     {
-                                        @Html.ActionLink("Delete", "DeleteAdmin", new { id = item.ID }, new {@class = "btn btn-sm btn-primary me-1"})
+                                        @Html.ActionLink("Delete", "DeleteAdmin", new { id = item.ID }, new { @class = "btn btn-sm btn-primary me-1" })
                                     }
                                     else
                                     {
@@ -105,6 +113,16 @@
 
     .btn-primary:active {
         background-color: #7048a0;
+    }
+
+    .search-button {
+        color: #8058ac;
+        border-color: #8058ac;
+    }
+
+    .search-button:hover, .search-button:active {
+        background-color: #8058ac;
+        border-color: #8058ac;
     }
 </style>
 
