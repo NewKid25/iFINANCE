@@ -8,6 +8,23 @@
     <div class="card shadow-sm rounded-4 p-5">
         <h2 class="text-center mb-4">Profit & Loss Report</h2>
 
+        <div class="search-bar" style="display: flex; flex-direction: column; align-items: flex-end;">
+            @using (Html.BeginForm("ProfitLoss", "Reports", FormMethod.Get, new { @class = "d-flex", role = "search", style = "margin-bottom: 20px;" }))
+            {
+                <div class="m-1">
+                    <label for="after">After date:</label>
+                    <input class="form-control me-2" type="date" name="after" value="@Request.QueryString["after"]" />
+                </div>
+
+                <div class="m-1">
+                    <label for="before">Before date:</label>
+                    <input class="form-control me-2" type="date" name="before" value="@Request.QueryString["before"]" />
+                </div>
+
+                <button class="btn btn-outline-success search-button" type="submit">Filter</button>
+            }
+        </div>
+
         <table class="table table-bordered table-hover align-middle">
             <thead class="table-light">
                 <tr>
