@@ -7,9 +7,23 @@
 <div class="container my-5">
     <div class="card shadow-sm rounded-4 p-5">
         <h2 class="text-center mb-4">Edit Transaction Line</h2>
+        @if (ViewBag.Warning)
+        {
+
+            <div class="alert alert-danger" id="overdraft-warning">
+                <h6>
+                    Warning: this transaction will result in one or more accounts with a negative balance.
+                    Are you sure you want to proceed?
+                </h6>
+            </div>
+        }
 
         @using (Html.BeginForm())
         {
+            if (ViewBag.Warning)
+            {
+                <input type="hidden" name="warning" value="visible" />
+            }
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger text-center mb-3" })
 

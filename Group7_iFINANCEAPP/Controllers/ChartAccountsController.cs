@@ -84,6 +84,38 @@ namespace Group7_iFINANCEAPP.Controllers
             }
         }
 
+        public static double CheckValueAfterDebit(MasterAccount masterAccount, double debit)
+        {
+            double amt = masterAccount.closingAmount;
+
+            if (masterAccount.Group.AccountCategory.type == "Debit")
+            {
+                amt += debit;
+            }
+            else
+            {
+                amt -= debit;
+            }
+
+            return amt;
+        }
+
+        public static double CheckValueAfterCredit(MasterAccount masterAccount, double credit)
+        {
+            double amt = masterAccount.closingAmount;
+
+            if (masterAccount.Group.AccountCategory.type == "Credit")
+            {
+                amt += credit;
+            }
+            else
+            {
+                amt -= credit;
+            }
+
+            return amt;
+        }
+
         // GET: ChartAccounts/Details/5
         public ActionResult Details(int? id)
         {

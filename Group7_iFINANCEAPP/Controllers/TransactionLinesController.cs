@@ -60,7 +60,7 @@ namespace Group7_iFINANCEAPP.Controllers
             ViewBag.MasterAccountID = new SelectList(masterAccounts, "ID", "name");
             // Debit
             ViewBag.MasterAccountID2 = new SelectList(masterAccounts, "ID", "name");
-            ViewBag.TransactionID = new SelectList(db.Transaction.Where(t => t.NonAdminUserID == nonAdminUserID), "ID", "description");
+            ViewBag.Warning = false;
             return View(line);
         }
 
@@ -72,8 +72,30 @@ namespace Group7_iFINANCEAPP.Controllers
         public ActionResult Create([Bind(Include = "creditedAmount,debitedAmount,comment,TransactionID,MasterAccountID,MasterAccountID2")] TransactionLine transactionLine)
         {
             int nonAdminUserID = (int)Session["NonAdminUserID"];
+
+            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
+            masterAccounts.Insert(0, null);
+
             if (ModelState.IsValid)
             {
+                if (Request.Form["warning"] != "visible")
+                {
+                    MasterAccount masterAccount = db.MasterAccount.Find(transactionLine.MasterAccountID ?? 0);
+                    MasterAccount masterAccount1 = db.MasterAccount.Find(transactionLine.MasterAccountID2 ?? 0);
+                    if ((masterAccount != null && ChartAccountsController.CheckValueAfterCredit(masterAccount, transactionLine.creditedAmount ?? 0) < 0) ||
+                        (masterAccount1 != null && ChartAccountsController.CheckValueAfterDebit(masterAccount1, transactionLine.debitedAmount ?? 0) < 0))
+                    {
+                        ViewBag.Warning = true;
+
+                        ViewBag.MasterAccountID = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID);
+                        ViewBag.MasterAccountID2 = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID2);
+                        ViewBag.TransactionID = new SelectList(db.Transaction, "ID", "description", transactionLine.TransactionID);
+                        return View(transactionLine);
+                    }
+                }
+                
+
+                
                 db.TransactionLine.Add(transactionLine);
 
                 ChartAccountsController.UpdateClosingBalance(nonAdminUserID, db);
@@ -83,8 +105,6 @@ namespace Group7_iFINANCEAPP.Controllers
             }
 
 
-            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
-            masterAccounts.Insert(0, null);
 
             ViewBag.MasterAccountID = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID);
             ViewBag.MasterAccountID2 = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID2);
@@ -110,36 +130,18 @@ namespace Group7_iFINANCEAPP.Controllers
             var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
             masterAccounts.Insert(0, null);
 
+
             ViewBag.MasterAccountID = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID);
             ViewBag.MasterAccountID2 = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID2);
             ViewBag.TransactionID = new SelectList(db.Transaction, "ID", "description", transactionLine.TransactionID);
+
+            ViewBag.Warning = false;
             return View(transactionLine);
         }
 
         // POST: TransactionLines/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-
-        /*
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "creditedAmount,debitedAmount,comment,TransactionID,MasterAccountID,MasterAccountID2")] TransactionLine transactionLine)
-        {
-            if (ModelState.IsValid)
-            {
-
-                db.Entry(transactionLine).State = EntityState.Modified;
-                db.SaveChanges();
-
-                return RedirectToAction("Index", "Transactions");
-            }
-            ViewBag.MasterAccountID = new SelectList(db.MasterAccount, "ID", "name", transactionLine.MasterAccountID);
-            ViewBag.MasterAccountID2 = new SelectList(db.MasterAccount, "ID", "name", transactionLine.MasterAccountID2);
-            ViewBag.TransactionID = new SelectList(db.Transaction, "ID", "description", transactionLine.TransactionID);
-            return View(transactionLine);
-        }
-        */
-
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
@@ -149,10 +151,28 @@ namespace Group7_iFINANCEAPP.Controllers
 
             int nonAdminUserID = (int)Session["NonAdminUserID"];
 
+            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
+            masterAccounts.Insert(0, null);
+
 
             if (TryUpdateModel(transactionLine, "",
                 new string[] { "creditedAmount", "debitedAmount", "comment", "MasterAccountID", "MasterAccountID2" }))
             {
+                if (Request.Form["warning"] != "visible")
+                {
+                    MasterAccount masterAccount = db.MasterAccount.Find(transactionLine.MasterAccountID ?? 0);
+                    MasterAccount masterAccount1 = db.MasterAccount.Find(transactionLine.MasterAccountID2 ?? 0);
+                    if ((masterAccount != null && ChartAccountsController.CheckValueAfterCredit(masterAccount, transactionLine.creditedAmount ?? 0) < 0) ||
+                        (masterAccount1 != null && ChartAccountsController.CheckValueAfterDebit(masterAccount1, transactionLine.debitedAmount ?? 0) < 0))
+                    {
+                        ViewBag.Warning = true;
+
+                        ViewBag.MasterAccountID = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID);
+                        ViewBag.MasterAccountID2 = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID2);
+                        ViewBag.TransactionID = new SelectList(db.Transaction, "ID", "description", transactionLine.TransactionID);
+                        return View(transactionLine);
+                    }
+                }
                 try
                 {
                     db.SaveChanges();
@@ -167,10 +187,6 @@ namespace Group7_iFINANCEAPP.Controllers
                     ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
                 }
             }
-
-            var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
-            masterAccounts.Insert(0, null);
-
 
             ViewBag.MasterAccountID = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID);
             ViewBag.MasterAccountID2 = new SelectList(masterAccounts, "ID", "name", transactionLine.MasterAccountID2);
