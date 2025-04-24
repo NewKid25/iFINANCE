@@ -13,7 +13,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
-                    <img src="~/Content/images/logo.png" alt="Logo" style="height: 30px; margin-right: 10px;" />
+                    <img src="~/Content/images/logo.png" alt="iFINANCE Logo" style="height: 30px; margin-right: 10px;" />
                     <span>iFINANCE</span>
                 </a>
                 @*@Html.ActionLink("iFINANCE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
@@ -46,8 +46,18 @@
         <div class="container body-content">
             @RenderBody()
             <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year -iFINANCE</p>
+            <footer class="footer d-flex align-items-center justify-content-around" style="margin-bottom: 15px;">
+                <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
+                    <img src="~/Content/images/logo.png" alt="iFINANCE Logo" style="height: 30px;" />
+                    <span class="ms-2">&copy; @DateTime.Now.Year iFINANCE</span>
+                </a>
+                <p class="mb-0 ms-4">Terms</p>
+                <p class="mb-0 ms-4">Privacy</p>
+                <p class="mb-0 ms-4">Cookies</p>
+                <p class="mb-0 ms-4">Security</p>
+                <p class="mb-0 ms-4">Data Retention</p>
+                <p class="mb-0 ms-4">License Agreement</p>
+                <p class="mb-0 ms-4">Contact</p>
             </footer>
         </div>
 
