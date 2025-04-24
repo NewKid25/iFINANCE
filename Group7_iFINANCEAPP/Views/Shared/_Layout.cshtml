@@ -12,7 +12,7 @@
     {
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
+                <a class="navbar-brand d-flex align-items-center" href="@((Session["AdministratorID"] != null) ? Url.Action("Index", "NonAdminUsers") : Url.Action("Index", "Home"))">
                     <img src="~/Content/images/logo.png" alt="Logo" style="height: 30px; margin-right: 10px;" />
                     <span>iFINANCE</span>
                 </a>
