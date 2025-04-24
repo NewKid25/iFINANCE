@@ -50,13 +50,13 @@
 
             <tfoot>
                 <tr class="fw-bold">
-                    <td>Profit / (Loss)</td>
                     @{
                         var net = Model.totalIncome - Model.totalExpense;
                         var isProfit = net >= 0;
                     }
+                    <td><span id="profit-label" class="@(isProfit ? "big-label" : "")">Profit</span> / <span id="loss-label" class="@(!isProfit ? "big-label" : "")">(Loss)</span></td>
                     <td class="text-end @(isProfit ? "text-success" : "text-danger")">
-                        @(isProfit ? net.ToString("C") : "(" + Math.Abs(net).ToString("C") + ")")
+                        @(isProfit ? "+" + net.ToString("C") : "-(" + Math.Abs(net).ToString("C") + ")")
                     </td>
                 </tr>
             </tfoot>
@@ -78,4 +78,20 @@
         background-color: #7048a0;
         border-color: #7048a0;
     }
+
+    .big-label {
+        font-size: 1.25em;
+        font-weight: 800;
+        text-decoration: underline;
+    }
+
+    #loss-label.big-label {
+        color: rgb(220, 53, 69);
+    }
+
+    #profit-label.big-label {
+        color: rgb(23, 90, 39);
+    }
+
+
 </style>
