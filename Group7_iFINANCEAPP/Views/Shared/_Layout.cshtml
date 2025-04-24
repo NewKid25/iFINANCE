@@ -47,7 +47,7 @@
             @RenderBody()
             <hr />
             <footer class="footer d-flex align-items-center justify-content-around" style="margin-bottom: 15px;">
-                <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
+                <a class="navbar-brand d-flex align-items-center" href="@((Session["AdministratorID"] != null) ? Url.Action("Index", "NonAdminUsers") : Url.Action("Index", "Home"))">
                     <img src="~/Content/images/logo.png" alt="iFINANCE Logo" style="height: 30px;" />
                     <span class="ms-2">&copy; @DateTime.Now.Year iFINANCE</span>
                 </a>
