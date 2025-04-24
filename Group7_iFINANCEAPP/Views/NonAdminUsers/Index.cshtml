@@ -10,22 +10,25 @@
     <div class="search-bar" style="display: flex; flex-direction: column; align-items: flex-end;">
         @using (Html.BeginForm("Index", "NonAdminUsers", FormMethod.Get, new { @class = "d-flex", role = "search", style = "margin-bottom: 20px;" }))
         {
-            <input class="form-control me-2" type="search" name="searchString" placeholder="Search by name" aria-label="Search" />
+            <input class="form-control me-2" type="search" name="searchString" value="@Request.QueryString["searchString"]" placeholder="Search by name" aria-label="Search" />
+            <input type="hidden" name="tab" value="@Model.ActiveTab" />
             <button class="btn btn-outline-success search-button" type="submit">Search</button>
         }
     </div>
 
     <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="nonadmin-tab" data-bs-toggle="tab" data-bs-target="#nonadmin" type="button" role="tab" aria-controls="nonadmin" aria-selected="true">Non-Admin Users</button>
+            <a class="nav-link @(Model.ActiveTab == "nonadmin" ? "active" : "")" id="nonadmin-tab"
+               href="@Url.Action("Index", new { tab = "nonadmin" })" role="tab">Non-Admin Users</a>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin" type="button" role="tab" aria-controls="admin" aria-selected="false">Admin Users</button>
+            <a class="nav-link @(Model.ActiveTab == "admin" ? "active" : "")" id="admin-tab"
+               href="@Url.Action("Index", new { tab = "admin" })" role="tab">Admin Users</a>
         </li>
     </ul>
 
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="nonadmin" role="tabpanel" aria-labelledby="nonadmin-tab">
+        <div class="tab-pane fade @(Model.ActiveTab == "nonadmin" ? "show active" : "")" id="nonadmin" role="tabpanel" aria-labelledby="nonadmin-tab">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4>Non-Admin Users</h4>
                 @Html.ActionLink("Add New User", "CreateNonAdmin", null, new { @class = "btn btn-primary" })
@@ -61,7 +64,7 @@
             </div>
         </div>
 
-        <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
+        <div class="tab-pane fade @(Model.ActiveTab == "admin" ? "show active" : "")" id="admin" role="tabpanel" aria-labelledby="admin-tab">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4>Admin Users</h4>
                 @Html.ActionLink("Add New User", "CreateAdmin", null, new { @class = "btn btn-primary" })

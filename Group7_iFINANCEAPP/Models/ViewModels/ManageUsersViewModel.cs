@@ -6,5 +6,6 @@ namespace Group7_iFINANCEAPP.Models.ViewModels
     {
         public List<NonAdminUser> NonAdminUsers { get; set; }
         public List<Administrator> Administrators { get; set; }
+        public string ActiveTab { get; set; }
     }
 }

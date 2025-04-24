@@ -18,26 +18,35 @@ namespace Group7_iFINANCEAPP.Controllers
         private Group7_iFINANCEDBEntities db = new Group7_iFINANCEDBEntities();
 
         // GET: NonAdminUsers
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string tab = "nonadmin")
         {
             if (Session["AdministratorID"] == null)
             {
                 return RedirectToAction("Index", "Login");
             }
 
-            var nonAdminUser = db.NonAdminUser.Include(n => n.Administrator);
+            var nonAdminUser = db.NonAdminUser.Include(n => n.Administrator).AsQueryable();
 
-            var admin = db.Administrator;
+            var adminUser = db.Administrator.AsQueryable();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                nonAdminUser = nonAdminUser.Where(n => n.name.Contains(searchString));
+                searchString = searchString.ToLower();
+                if (tab == "admin")
+                {
+                    adminUser = adminUser.Where(a => a.name.ToLower().Contains(searchString));
+                }
+                else
+                {
+                    nonAdminUser = nonAdminUser.Where(n => n.name.ToLower().Contains(searchString));
+                }
             }
 
             var viewModel = new ManageUsersViewModel();
             
-            viewModel.Administrators = admin.ToList();
+            viewModel.Administrators = adminUser.ToList();
             viewModel.NonAdminUsers = nonAdminUser.ToList();
+            viewModel.ActiveTab = tab;
 
             return View(viewModel);
         }
