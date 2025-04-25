@@ -59,13 +59,10 @@ namespace Group7_iFINANCEAPP.Controllers
         // GET: Transactions/Create
         public ActionResult Create()
         {
-            //ViewBag.NonAdminUserID = new SelectList(db.NonAdminUser, "ID", "name");
             return View();
         }
 
         // POST: Transactions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "date,description")] Transaction transaction)
@@ -99,8 +96,6 @@ namespace Group7_iFINANCEAPP.Controllers
         }
 
         // POST: Transactions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "date,description,NonAdminUserID")] Transaction transaction)
@@ -141,6 +136,7 @@ namespace Group7_iFINANCEAPP.Controllers
 
             if (transaction != null)
             {
+                // Update account closing balances
                 foreach (var line in transaction.TransactionLine.ToList())
                 {
                     if (line.MasterAccount != null)

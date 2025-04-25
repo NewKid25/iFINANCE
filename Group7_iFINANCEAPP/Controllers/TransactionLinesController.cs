@@ -65,8 +65,6 @@ namespace Group7_iFINANCEAPP.Controllers
         }
 
         // POST: TransactionLines/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "creditedAmount,debitedAmount,comment,TransactionID,MasterAccountID,MasterAccountID2")] TransactionLine transactionLine)
@@ -78,6 +76,7 @@ namespace Group7_iFINANCEAPP.Controllers
 
             if (ModelState.IsValid)
             {
+                // Check if this transaction will result in a negative balance, display warning if so
                 if (Request.Form["warning"] != "visible")
                 {
                     MasterAccount masterAccount = db.MasterAccount.Find(transactionLine.MasterAccountID ?? 0);
@@ -94,6 +93,8 @@ namespace Group7_iFINANCEAPP.Controllers
                     }
                 }
                 
+                // If no account is negative or the user has already seen the warning and resubmitted, proceed
+                // as normal
 
                 
                 db.TransactionLine.Add(transactionLine);
@@ -140,9 +141,6 @@ namespace Group7_iFINANCEAPP.Controllers
         }
 
         // POST: TransactionLines/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
@@ -158,6 +156,7 @@ namespace Group7_iFINANCEAPP.Controllers
             if (TryUpdateModel(transactionLine, "",
                 new string[] { "creditedAmount", "debitedAmount", "comment", "MasterAccountID", "MasterAccountID2" }))
             {
+                // Check if this transaction will result in a negative balance, display warning if so
                 if (Request.Form["warning"] != "visible")
                 {
                     MasterAccount masterAccount = db.MasterAccount.Find(transactionLine.MasterAccountID ?? 0);
@@ -173,6 +172,10 @@ namespace Group7_iFINANCEAPP.Controllers
                         return View(transactionLine);
                     }
                 }
+
+                // If no account is negative or the user has already seen the warning and resubmitted, proceed
+                // as normal
+
                 try
                 {
                     db.SaveChanges();
@@ -214,8 +217,6 @@ namespace Group7_iFINANCEAPP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-
-
             TransactionLine transactionLine = db.TransactionLine.Find(id);
 
             db.TransactionLine.Remove(transactionLine);
@@ -226,6 +227,7 @@ namespace Group7_iFINANCEAPP.Controllers
             var masterAccounts = db.MasterAccount.Where(a => a.Group.NonAdminUserID == nonAdminUserID).ToList();
             masterAccounts.Insert(0, null);
 
+            // Update account balances after removing transactions
             ChartAccountsController.UpdateClosingBalance(nonAdminUserID, db);
 
             return RedirectToAction("Index", "Transactions");
