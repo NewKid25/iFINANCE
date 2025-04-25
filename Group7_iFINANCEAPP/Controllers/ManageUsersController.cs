@@ -13,11 +13,11 @@ using Group7_iFINANCEAPP.Models.ViewModels;
 
 namespace Group7_iFINANCEAPP.Controllers
 {
-    public class NonAdminUsersController : Controller
+    public class ManageUsersController : Controller
     {
         private Group7_iFINANCEDBEntities db = new Group7_iFINANCEDBEntities();
 
-        // GET: NonAdminUsers
+        // GET: ManageUsers
         public ActionResult Index(string searchString, string tab = "nonadmin")
         {
             // If not authenticated, redirect to login page
@@ -55,7 +55,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(viewModel);
         }
 
-        // GET: NonAdminUsers/Details/5
+        // GET: ManageUsers/Details/5
         public ActionResult DetailsAdmin(int? id)
         {
             if (id == null)
@@ -70,7 +70,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(admin);
         }
 
-        // GET: NonAdminUsers/Details/5
+        // GET: ManageUsers/Details/5
         public ActionResult DetailsNonAdmin(int? id)
         {
             if (id == null)
@@ -85,13 +85,13 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(nonAdminUser);
         }
 
-        // GET: NonAdminUsers/CreateAdmin
+        // GET: ManageUsers/CreateAdmin
         public ActionResult CreateAdmin()
         {
             return View();
         }
 
-        // POST: NonAdminUsers/CreateAdmin
+        // POST: ManageUsers/CreateAdmin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateAdmin([Bind(Include = "name,dateHired,dateFinished")] Administrator admin)
@@ -123,13 +123,13 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(admin);
         }
 
-        // GET: NonAdminUsers/CreateNonAdmin
+        // GET: ManageUsers/CreateNonAdmin
         public ActionResult CreateNonAdmin()
         {
             return View();
         }
 
-        // POST: NonAdminUsers/CreateNonAdmin
+        // POST: ManageUsers/CreateNonAdmin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateNonAdmin([Bind(Include = "name,address,email")] NonAdminUser nonAdminUser)
@@ -181,7 +181,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return sBuilder.ToString();
         }
 
-        // GET: NonAdminUsers/EditAdmin/5
+        // GET: ManageUsers/EditAdmin/5
         public ActionResult EditAdmin(int? id)
         {
             if (id == null)
@@ -197,7 +197,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(admin);
         }
 
-        // POST: NonAdminUsers/EditAdmin/5
+        // POST: ManageUsers/EditAdmin/5
         [HttpPost, ActionName("EditAdmin")]
         [ValidateAntiForgeryToken]
         public ActionResult EditAdminPost(int? id)
@@ -246,7 +246,7 @@ namespace Group7_iFINANCEAPP.Controllers
 
         }
 
-        // GET: NonAdminUsers/EditNonAdmin/5
+        // GET: ManageUsers/EditNonAdmin/5
         public ActionResult EditNonAdmin(int? id)
         {
             if (id == null)
@@ -267,7 +267,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(nonAdminUser);
         }
 
-        // POST: NonAdminUsers/EditNonAdmin/5
+        // POST: ManageUsers/EditNonAdmin/5
         [HttpPost, ActionName("EditNonAdmin")]
         [ValidateAntiForgeryToken]
         public ActionResult EditNonAdminPost(int? id)
@@ -335,7 +335,7 @@ namespace Group7_iFINANCEAPP.Controllers
 
         }
 
-        // GET: NonAdminUsers/DeleteAdmin/5
+        // GET: ManageUsers/DeleteAdmin/5
         public ActionResult DeleteAdmin(int? id)
         {
             if (id == null)
@@ -350,7 +350,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(admin);
         }
 
-        // POST: NonAdminUsers/DeleteAdmin/5
+        // POST: ManageUsers/DeleteAdmin/5
         [HttpPost, ActionName("DeleteAdmin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteAdminConfirmed(int id)
@@ -372,7 +372,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: NonAdminUsers/DeleteNonAdmin/5
+        // GET: ManageUsers/DeleteNonAdmin/5
         public ActionResult DeleteNonAdmin(int? id)
         {
             if (id == null)
@@ -387,7 +387,7 @@ namespace Group7_iFINANCEAPP.Controllers
             return View(nonAdminUser);
         }
 
-        // POST: NonAdminUsers/DeleteNonAdmin/5
+        // POST: ManageUsers/DeleteNonAdmin/5
         [HttpPost, ActionName("DeleteNonAdmin")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteNonAdminConfirmed(int id)

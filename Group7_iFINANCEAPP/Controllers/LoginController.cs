@@ -31,7 +31,7 @@ namespace Group7_iFINANCEAPP.Controllers
             byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
             byte[] hash = SHA256.Create().ComputeHash(pass);
 
-            string encryptedPassword = NonAdminUsersController.GetHashString(hash);
+            string encryptedPassword = ManageUsersController.GetHashString(hash);
 
             UserPassword p = db.UserPassword.Where(a => a.userName == username).Where(a => a.encryptedPassword == encryptedPassword).FirstOrDefault();
             
@@ -45,7 +45,7 @@ namespace Group7_iFINANCEAPP.Controllers
                     return RedirectToAction("Index", "Home");
                 // Admin goes to Manage Users page
                 else
-                    return RedirectToAction("Index", "NonAdminUsers");
+                    return RedirectToAction("Index", "ManageUsers");
             }
             else
             {
@@ -70,7 +70,7 @@ namespace Group7_iFINANCEAPP.Controllers
             byte[] pass = UTF8Encoding.UTF8.GetBytes(Request.Form["password"]);
             byte[] hash = SHA256.Create().ComputeHash(pass);
 
-            string encryptedPassword = NonAdminUsersController.GetHashString(hash);
+            string encryptedPassword = ManageUsersController.GetHashString(hash);
 
             UserPassword p;
 

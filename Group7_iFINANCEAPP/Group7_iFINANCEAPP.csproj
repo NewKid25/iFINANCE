@@ -133,7 +133,7 @@
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\NonAdminUsersController.cs" />
+    <Compile Include="Controllers\ManageUsersController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\TransactionLinesController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
@@ -262,11 +262,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\NonAdminUsers\CreateNonAdmin.cshtml" />
-    <Content Include="Views\NonAdminUsers\DeleteNonAdmin.cshtml" />
-    <Content Include="Views\NonAdminUsers\DetailsNonAdmin.cshtml" />
-    <Content Include="Views\NonAdminUsers\EditNonAdmin.cshtml" />
-    <Content Include="Views\NonAdminUsers\Index.cshtml" />
+    <Content Include="Views\ManageUsers\CreateNonAdmin.cshtml" />
+    <Content Include="Views\ManageUsers\DeleteNonAdmin.cshtml" />
+    <Content Include="Views\ManageUsers\DetailsNonAdmin.cshtml" />
+    <Content Include="Views\ManageUsers\EditNonAdmin.cshtml" />
+    <Content Include="Views\ManageUsers\Index.cshtml" />
     <Content Include="Views\Groups\Create.cshtml" />
     <Content Include="Views\Groups\Delete.cshtml" />
     <Content Include="Views\Groups\Details.cshtml" />
@@ -290,10 +290,10 @@
     <Content Include="Views\TransactionLines\Edit.cshtml" />
     <Content Include="Views\Reports\ProfitLoss.cshtml" />
     <Content Include="Views\Reports\TrialBalance.cshtml" />
-    <Content Include="Views\NonAdminUsers\CreateAdmin.cshtml" />
-    <Content Include="Views\NonAdminUsers\DeleteAdmin.cshtml" />
-    <Content Include="Views\NonAdminUsers\DetailsAdmin.cshtml" />
-    <Content Include="Views\NonAdminUsers\EditAdmin.cshtml" />
+    <Content Include="Views\ManageUsers\CreateAdmin.cshtml" />
+    <Content Include="Views\ManageUsers\DeleteAdmin.cshtml" />
+    <Content Include="Views\ManageUsers\DetailsAdmin.cshtml" />
+    <Content Include="Views\ManageUsers\EditAdmin.cshtml" />
     <Content Include="Views\Login\Reset.cshtml" />
   </ItemGroup>
   <ItemGroup>

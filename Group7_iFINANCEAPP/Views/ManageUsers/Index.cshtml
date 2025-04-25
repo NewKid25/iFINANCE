@@ -8,7 +8,7 @@
     <h2 class="text-center mb-4">Manage Users</h2>
     
     <div class="search-bar" style="display: flex; flex-direction: column; align-items: flex-end;">
-        @using (Html.BeginForm("Index", "NonAdminUsers", FormMethod.Get, new { @class = "d-flex", role = "search", style = "margin-bottom: 20px;" }))
+        @using (Html.BeginForm("Index", "ManageUsers", FormMethod.Get, new { @class = "d-flex", role = "search", style = "margin-bottom: 20px;" }))
         {
             <input class="form-control me-2" type="search" name="searchString" value="@Request.QueryString["searchString"]" placeholder="Search by name" aria-label="Search" />
             <input type="hidden" name="tab" value="@Model.ActiveTab" />
